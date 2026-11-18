@@ -1,6 +1,7 @@
 import MobileHeroCarousel from "../components/MobileHeroCarousel";
 import Link from "next/link";
 import Image from "next/image";
+import DesktopHeroCarousel from "../components/DesktopHeroCarousel";
 
 import {
   Droplet,
@@ -141,30 +142,9 @@ export default function Home() {
     lg:flex lg:min-h-[680px] lg:items-center
   "
 >
-  {/* IMAGE DE FOND : ORDINATEUR UNIQUEMENT */}
-  <div className="absolute inset-0 hidden lg:block">
-    <Image
-      src="/images/hero/josunico-hero.png"
-      alt=""
-      fill
-      priority
-      sizes="100vw"
-      className="object-cover object-center"
-    />
-  </div>
 
-  {/* PROTECTION DISCRÈTE DU TEXTE SUR ORDINATEUR */}
-  <div
-    aria-hidden="true"
-    className="
-      pointer-events-none absolute inset-y-0 left-0
-      hidden w-[62%] lg:block
-      bg-gradient-to-r
-      from-[#061D3C]/75
-      via-[#061D3C]/35
-      to-transparent
-    "
-  />
+  {/* CARROUSEL D'ARRIÈRE-PLAN SUR ORDINATEUR */}
+  <DesktopHeroCarousel />
 
   {/* CONTENU PRINCIPAL */}
   <div
@@ -199,7 +179,7 @@ export default function Home() {
           text-[clamp(2.8rem,9vw,4.5rem)]
           font-extrabold leading-[1.05]
           tracking-[-0.045em]
-          text-[#FF6575]
+          text-[#B71932]
           drop-shadow-[0_3px_10px_rgba(0,0,0,0.35)]
           lg:text-[76px]
         "
@@ -442,127 +422,94 @@ export default function Home() {
 </section>
 
 
-      {/* ========================================
-          3. POURQUOI CHOISIR JOSUNICO ?
-          ======================================== */}
+      
+{/* ========================================
+    3. POURQUOI CHOISIR JOSUNICO ?
+    ======================================== */}
 
-      <section
-        className="bg-white px-6 py-20 lg:px-8 lg:py-24"
-        aria-labelledby="why-title"
-      >
+<section
+  className="bg-white px-6 py-12 sm:py-14 lg:px-8 lg:py-16"
+  aria-labelledby="why-title"
+>
+  <div className="mx-auto max-w-7xl">
 
-        <div className="mx-auto max-w-7xl">
+    {/* En-tête compact */}
+    <div className="mb-7 flex flex-col justify-between gap-4 md:flex-row md:items-end">
 
-          <div className="mb-11 max-w-2xl">
+      <div>
+        <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.18em] text-[#B71932]">
+          Notre approche
+        </p>
 
-            <p className="mb-3 text-xs font-bold uppercase tracking-[0.22em] text-[#B71932]">
-              Notre approche
-            </p>
+        <h2
+          id="why-title"
+          className="text-2xl font-bold tracking-tight text-[#102D50] sm:text-3xl"
+        >
+          Pourquoi choisir JOSUNICO ?
+        </h2>
+      </div>
 
-            <h2
-              id="why-title"
-              className="text-3xl font-bold sm:text-4xl"
-            >
-              Pourquoi choisir JOSUNICO ?
-            </h2>
+      <p className="max-w-sm text-sm leading-6 text-slate-600">
+        Quatre engagements essentiels pour accompagner
+        vos projets.
+      </p>
+    </div>
 
-            <p className="mt-4 leading-7 text-slate-600">
-              Des valeurs qui guident notre manière
-              de travailler et d’accompagner nos clients.
-            </p>
+    {/* Petites cartes */}
+    <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
 
-          </div>
-
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-
-            {strengths.map(({ Icon, title, description }) => (
-
-              <article
-                key={title}
-                className="
-                  rounded-xl border border-slate-200
-                  bg-[#F7F9FC] p-7
-                  transition-all duration-300
-                  hover:border-[#B71932]/30
-                  hover:shadow-md
-                "
-              >
-
-                <div
-                  className="
-                    mb-6 flex h-12 w-12
-                    items-center justify-center
-                    rounded-lg bg-white
-                    text-[#B71932] shadow-sm
-                  "
-                >
-                  <Icon size={25} />
-                </div>
-
-                <h3 className="mb-3 text-lg font-semibold">
-                  {title}
-                </h3>
-
-                <p className="text-sm leading-7 text-slate-600">
-                  {description}
-                </p>
-
-              </article>
-            ))}
-
-          </div>
-        </div>
-      </section>
-
-      {/* ========================================
-          4. APPEL À L'ACTION
-          ======================================== */}
-
-      <section className="bg-[#092D5A] px-6 py-16 text-white lg:px-8">
-
-        <div
+      {strengths.map(({ Icon, title }) => (
+        <article
+          key={title}
           className="
-            mx-auto flex max-w-7xl
-            flex-col items-start
-            justify-between gap-7
-            md:flex-row md:items-center
+            group flex min-h-[88px] items-center gap-3
+            rounded-lg border border-slate-200
+            bg-[#F7F9FC] px-4 py-4
+            transition-all duration-300
+            hover:border-[#B71932]/30
+            hover:bg-white hover:shadow-md
           "
         >
-
-          <div>
-
-            <p className="mb-2 text-xs font-bold uppercase tracking-[0.2em] text-[#FF7B85]">
-              Un projet en perspective ?
-            </p>
-
-            <h2 className="text-2xl font-bold sm:text-3xl">
-              Parlons de vos besoins.
-            </h2>
-
-            <p className="mt-2 text-sm text-slate-200">
-              Notre équipe est à votre écoute
-              pour étudier votre demande.
-            </p>
-
-          </div>
-
-          <Link
-            href="/contact"
+          <div
             className="
-              inline-flex items-center gap-3
-              rounded-md bg-[#B71932]
-              px-6 py-4
-              text-sm font-semibold text-white
-              transition hover:bg-[#94152A]
+              flex h-10 w-10 shrink-0
+              items-center justify-center
+              rounded-lg bg-white
+              text-[#B71932]
+              shadow-sm
             "
           >
-            Nous contacter
-            <ArrowRight size={18} />
-          </Link>
+            <Icon size={21} strokeWidth={1.8} />
+          </div>
 
-        </div>
-      </section>
+          <h3 className="text-sm font-semibold leading-snug text-[#102D50]">
+            {title}
+          </h3>
+        </article>
+      ))}
 
+    </div>
+
+    {/* Lien vers la présentation détaillée */}
+    <div className="mt-6">
+      <Link
+        href="/a-propos"
+        className="
+          inline-flex items-center gap-2
+          text-sm font-semibold text-[#B71932]
+          transition hover:text-[#092D5A]
+        "
+      >
+        En savoir plus sur JOSUNICO
+        <ArrowRight size={16} />
+      </Link>
+    </div>
+
+  </div>
+</section>
+
+
+     
     </main>
   );
 }
