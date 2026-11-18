@@ -1,7 +1,9 @@
+
 import MobileHeroCarousel from "../components/MobileHeroCarousel";
-import Link from "next/link";
-import Image from "next/image";
 import DesktopHeroCarousel from "../components/DesktopHeroCarousel";
+
+import Link from "next/link";
+import { Space_Grotesk } from "next/font/google";
 
 import {
   Droplet,
@@ -20,6 +22,13 @@ import {
   Target,
 } from "lucide-react";
 
+// Police distinctive pour les grands titres
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  weight: ["500", "600", "700"],
+  display: "swap",
+});
+
 // ========================================
 // LES 9 SERVICES DE JOSUNICO
 // ========================================
@@ -37,7 +46,7 @@ const services = [
     title: "Aménagement & assainissement",
     subtitle: "Environnement",
     Icon: Leaf,
-    image: "/images/services/assainissement.webp", 
+    image: "/images/services/assainissement.webp",
   },
   {
     slug: "personnel",
@@ -91,425 +100,400 @@ const services = [
 ];
 
 // ========================================
-// LES POINTS FORTS DE JOSUNICO
+// LES POINTS FORTS
 // ========================================
 
 const strengths = [
   {
     Icon: Award,
     title: "Expertise multisectorielle",
-    description:
-      "Un interlocuteur pour des besoins variés, de la conception aux prestations de terrain.",
   },
   {
     Icon: Users,
     title: "Personnel qualifié",
-    description:
-      "Une approche fondée sur le savoir-faire, la collaboration et la formation continue.",
   },
   {
     Icon: ShieldCheck,
     title: "Sécurité & rigueur",
-    description:
-      "Une attention portée à l’hygiène, à la sécurité et à la qualité des interventions.",
   },
   {
     Icon: Target,
     title: "Engagement client",
-    description:
-      "Des solutions adaptées aux besoins et aux exigences de chaque projet.",
   },
 ];
-
-// ========================================
-// PAGE D'ACCUEIL
-// ========================================
 
 export default function Home() {
   return (
     <main className="bg-[#F5F7FA] text-[#102D50]">
 
-      
-{/* ==========================================
-    1. HERO JOSUNICO - DESKTOP & MOBILE
-    ========================================== */}
+      {/* ========================================
+          1. HERO
+          ======================================== */}
 
-<section
-  aria-labelledby="hero-title"
-  className="
-    relative isolate overflow-hidden
-    bg-[#092D5A] text-white
-    lg:flex lg:min-h-[680px] lg:items-center
-  "
->
-
-  {/* CARROUSEL D'ARRIÈRE-PLAN SUR ORDINATEUR */}
-  <DesktopHeroCarousel />
-
-  {/* CONTENU PRINCIPAL */}
-  <div
-    className="
-      relative z-10 mx-auto w-full max-w-7xl
-      px-6 pt-16 pb-12
-      sm:px-8 sm:pt-20
-      lg:px-10 lg:py-28
-    "
-  >
-    <div className="max-w-[610px]">
-
-      {/* PETITE LIGNE D'IDENTITÉ */}
-      <div className="mb-5 flex items-center gap-3">
-        <span className="h-[2px] w-9 bg-[#FF6676]" />
-
-        <p
-          className="
-            text-[10px] font-bold uppercase
-            tracking-[0.19em] text-white/85
-            sm:text-xs
-          "
-        >
-          Entreprise multiservices · RDC
-        </p>
-      </div>
-
-      {/* NOM DE L'ENTREPRISE */}
-      <h1
-        id="hero-title"
+      <section
+        aria-labelledby="hero-title"
         className="
-          text-[clamp(2.8rem,9vw,4.5rem)]
-          font-extrabold leading-[1.05]
-          tracking-[-0.045em]
-          text-[#B71932]
-          drop-shadow-[0_3px_10px_rgba(0,0,0,0.35)]
-          lg:text-[76px]
+          relative isolate overflow-hidden
+          bg-[#092D5A] text-white
+          lg:flex lg:min-h-[570px] lg:items-center
         "
       >
-        JOSUNICO
-      </h1>
+        {/* Carrousel ordinateur */}
+        <DesktopHeroCarousel />
 
-      {/* SLOGAN */}
-      <h2
-        className="
-          mt-5 max-w-[580px]
-          text-[clamp(1.45rem,5.5vw,2.25rem)]
-          font-semibold leading-[1.25]
-          tracking-[-0.025em]
-          text-white
-          drop-shadow-[0_2px_8px_rgba(0,0,0,0.65)]
-          lg:text-[38px]
-        "
-      >
-        Bâtir, Accompagner
-        <br className="hidden sm:block" />
-        {" "}et Innover.
-      </h2>
-
-      {/* DESCRIPTION */}
-      <p
-        className="
-          mt-6 max-w-[490px]
-          text-[15px] font-medium
-          leading-[1.85] text-[#EAF1FA]
-          drop-shadow-[0_2px_6px_rgba(0,0,0,0.6)]
-          sm:text-base
-          lg:text-[17px]
-        "
-      >
-        Une entreprise congolaise multiservices,
-        engagée dans la construction, l’industrie
-        et les solutions qui accompagnent vos projets.
-      </p>
-
-      {/* BOUTONS */}
-      <div
-        className="
-          mt-8 flex flex-col gap-3
-          sm:flex-row sm:flex-wrap
-          lg:mt-10
-        "
-      >
-        <Link
-          href="/services"
+        {/* Contenu principal */}
+        <div
           className="
-            inline-flex min-h-[52px]
-            items-center justify-center gap-3
-            rounded-lg bg-[#B71932]
-            px-7 py-3.5
-            text-sm font-bold text-white
-            shadow-[0_8px_24px_rgba(0,0,0,0.2)]
-            transition-all duration-300
-            hover:-translate-y-0.5
-            hover:bg-[#96152A]
-            focus-visible:outline
-            focus-visible:outline-2
-            focus-visible:outline-offset-4
-            focus-visible:outline-white
+            relative z-10 mx-auto w-full max-w-7xl
+            px-6 pb-9 pt-12
+            sm:px-8 sm:pb-11 sm:pt-14
+            lg:px-10 lg:py-16
           "
         >
-          Explorer nos services
-          <ArrowRight size={18} />
-        </Link>
+          <div className="max-w-[650px]">
 
-        <Link
-          href="/contact"
-          className="
-            inline-flex min-h-[52px]
-            items-center justify-center gap-3
-            rounded-lg border border-white
-            bg-white px-7 py-3.5
-            text-sm font-bold text-[#092D5A]
-            shadow-sm transition-all duration-300
-            hover:-translate-y-0.5
-            hover:bg-slate-100
-            focus-visible:outline
-            focus-visible:outline-2
-            focus-visible:outline-offset-4
-            focus-visible:outline-white
-          "
-        >
-          Demander un devis
-          <ArrowUpRight size={18} />
-        </Link>
-      </div>
-    </div>
-  </div>
+            {/* Identité */}
+            <div className="mb-4 flex items-center gap-3">
+              <span className="h-[2px] w-8 bg-[#FF6676]" />
 
-  {/* CARROUSEL MOBILE ET TABLETTE */}
-  <div className="lg:hidden">
-    <MobileHeroCarousel />
-  </div>
-</section>
+              <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-white/90 sm:text-xs">
+                Entreprise multiservices · RDC
+              </p>
+            </div>
 
+            {/* Nom de l'entreprise */}
+            <h1
+              id="hero-title"
+              className={`
+                ${spaceGrotesk.className}
+                text-[clamp(2.9rem,9vw,4.7rem)]
+                font-bold leading-[1.02]
+                tracking-[-0.055em]
+                text-[#B71932]
+                drop-shadow-[0_3px_8px_rgba(0,0,0,0.6)]
+                lg:text-[78px]
+              `}
+            >
+              JOSUNICO
+            </h1>
 
-      
-{/* ========================================
-    2. NOS DOMAINES D'EXPERTISE
-    ======================================== */}
+            {/* Slogan */}
+            <h2
+              className={`
+                ${spaceGrotesk.className}
+                mt-3 max-w-[610px]
+                text-[clamp(1.5rem,5.5vw,2.4rem)]
+                font-semibold leading-[1.16]
+                tracking-[-0.04em]
+                text-white
+                drop-shadow-[0_3px_10px_rgba(0,0,0,0.8)]
+                lg:text-[40px]
+              `}
+            >
+              Bâtir, Accompagner
+              <br className="hidden sm:block" />
+              {" "}et Innover.
+            </h2>
 
-<section
-  className="mx-auto max-w-7xl px-6 py-20 lg:px-8 lg:py-28"
-  aria-labelledby="services-title"
->
-  {/* TITRE DE LA SECTION */}
-  <div className="mb-12 flex flex-col justify-between gap-6 md:flex-row md:items-end">
+            {/* Description */}
+            <p
+              className="
+                mt-4 max-w-[500px]
+                text-sm font-medium
+                leading-7 text-white
+                drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]
+                sm:text-base
+                lg:text-[16px]
+              "
+            >
+              Une entreprise congolaise multiservices,
+              engagée dans la construction, l’industrie
+              et les solutions qui accompagnent vos projets.
+            </p>
 
-    <div className="max-w-3xl">
-      <p className="mb-3 text-xs font-bold uppercase tracking-[0.22em] text-[#B71932]">
-        Nos domaines d'expertise
-      </p>
-
-      <h2
-        id="services-title"
-        className="text-3xl font-bold leading-tight tracking-tight sm:text-4xl lg:text-5xl"
-      >
-        Des compétences multiples.
-        <br />
-        <span className="text-[#B71932]">
-          Un même engagement.
-        </span>
-      </h2>
-    </div>
-
-    <p className="max-w-xs text-sm leading-7 text-slate-600">
-      Découvrez les neuf domaines d'intervention
-      de JOSUNICO et sélectionnez celui qui
-      correspond à votre besoin.
-    </p>
-  </div>
-
-  {/* GRILLE DES SERVICES */}
-  <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
-
-    {services.map(
-      ({ slug, title, subtitle, Icon, image }) => (
-
-        <Link
-          key={slug}
-          href={`/services?service=${slug}`}
-          className="
-            group flex min-h-[160px]
-            overflow-hidden rounded-xl
-            border border-slate-200
-            bg-white shadow-sm
-            transition-all duration-300
-            hover:-translate-y-1
-            hover:border-[#B71932]/30
-            hover:shadow-xl
-          "
-        >
-
-          {/* PHOTO À GAUCHE */}
-          <div className="relative w-[42%] shrink-0 overflow-hidden bg-slate-200">
-
+            {/* Boutons */}
             <div
               className="
-                absolute inset-0
-                bg-cover bg-center
-                transition-transform duration-500
-                group-hover:scale-110
+                mt-6 flex flex-col gap-3
+                sm:flex-row sm:flex-wrap
+                lg:mt-7
               "
-              style={{
-                backgroundImage: `url('${image}')`,
-              }}
-            />
-
-            {/* Trait rouge décoratif */}
-            <div className="absolute bottom-0 left-0 h-1 w-full bg-[#B71932]" />
-          </div>
-
-          {/* TEXTE À DROITE */}
-          <div className="flex min-w-0 flex-1 flex-col justify-between p-4 sm:p-5">
-
-            <div>
-              {/* Icône */}
-              <div
+            >
+              <Link
+                href="/services"
                 className="
-                  mb-3 flex h-9 w-9
-                  items-center justify-center
-                  rounded-lg bg-[#EAF2FB]
-                  text-[#1267AC]
-                  transition-colors duration-300
-                  group-hover:bg-[#B71932]
-                  group-hover:text-white
+                  inline-flex min-h-12
+                  items-center justify-center gap-2
+                  rounded-lg bg-[#B71932]
+                  px-6 py-3
+                  text-sm font-bold text-white
+                  shadow-lg transition-all duration-300
+                  hover:-translate-y-0.5
+                  hover:bg-[#96152A]
+                  focus-visible:outline
+                  focus-visible:outline-2
+                  focus-visible:outline-offset-4
+                  focus-visible:outline-white
                 "
               >
-                <Icon size={19} strokeWidth={1.8} />
-              </div>
+                Explorer nos services
+                <ArrowRight size={17} />
+              </Link>
 
-              {/* Sous-titre */}
-              <p className="mb-1 text-[11px] font-medium text-slate-500">
-                {subtitle}
-              </p>
-
-              {/* Nom du service */}
-              <h3 className="text-sm font-semibold leading-snug text-[#102D50] sm:text-base">
-                {title}
-              </h3>
-            </div>
-
-            {/* Lien visuel */}
-            <div className="mt-3 flex items-center justify-between">
-              <span className="text-[11px] font-semibold text-[#B71932]">
-                En savoir plus
-              </span>
-
-              <ArrowUpRight
-                size={18}
+              <Link
+                href="/contact"
                 className="
-                  text-[#B71932]
-                  transition-transform duration-300
-                  group-hover:translate-x-1
-                  group-hover:-translate-y-1
+                  inline-flex min-h-12
+                  items-center justify-center gap-2
+                  rounded-lg border border-white
+                  bg-white px-6 py-3
+                  text-sm font-bold text-[#092D5A]
+                  shadow-sm transition-all duration-300
+                  hover:-translate-y-0.5
+                  hover:bg-slate-100
+                  focus-visible:outline
+                  focus-visible:outline-2
+                  focus-visible:outline-offset-4
+                  focus-visible:outline-white
                 "
-              />
+              >
+                Demander un devis
+                <ArrowUpRight size={17} />
+              </Link>
             </div>
 
           </div>
+        </div>
 
-        </Link>
-      )
-    )}
+        {/* Carrousel mobile et tablette */}
+        <div className="lg:hidden">
+          <MobileHeroCarousel />
+        </div>
+      </section>
 
-  </div>
+      {/* ========================================
+          2. NOS DOMAINES D'EXPERTISE
+          ======================================== */}
 
-  {/* NOTE SUR LES PHOTOGRAPHIES */}
-  <p className="mt-6 text-xs leading-6 text-slate-500">
-    Photographies d'illustration provisoires :
-    elles ne représentent pas nécessairement
-    les équipements ou réalisations de JOSUNICO.
-  </p>
-
-</section>
-
-
-      
-{/* ========================================
-    3. POURQUOI CHOISIR JOSUNICO ?
-    ======================================== */}
-
-<section
-  className="bg-white px-6 py-12 sm:py-14 lg:px-8 lg:py-16"
-  aria-labelledby="why-title"
->
-  <div className="mx-auto max-w-7xl">
-
-    {/* En-tête compact */}
-    <div className="mb-7 flex flex-col justify-between gap-4 md:flex-row md:items-end">
-
-      <div>
-        <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.18em] text-[#B71932]">
-          Notre approche
-        </p>
-
-        <h2
-          id="why-title"
-          className="text-2xl font-bold tracking-tight text-[#102D50] sm:text-3xl"
-        >
-          Pourquoi choisir JOSUNICO ?
-        </h2>
-      </div>
-
-      <p className="max-w-sm text-sm leading-6 text-slate-600">
-        Quatre engagements essentiels pour accompagner
-        vos projets.
-      </p>
-    </div>
-
-    {/* Petites cartes */}
-    <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-
-      {strengths.map(({ Icon, title }) => (
-        <article
-          key={title}
+      <section
+        className="
+          mx-auto max-w-7xl
+          px-6 py-10
+          sm:py-12
+          lg:px-8 lg:py-14
+        "
+        aria-labelledby="services-title"
+      >
+        {/* En-tête */}
+        <div
           className="
-            group flex min-h-[88px] items-center gap-3
-            rounded-lg border border-slate-200
-            bg-[#F7F9FC] px-4 py-4
-            transition-all duration-300
-            hover:border-[#B71932]/30
-            hover:bg-white hover:shadow-md
+            mb-7 flex flex-col justify-between gap-4
+            md:flex-row md:items-end
           "
         >
-          <div
-            className="
-              flex h-10 w-10 shrink-0
-              items-center justify-center
-              rounded-lg bg-white
-              text-[#B71932]
-              shadow-sm
-            "
-          >
-            <Icon size={21} strokeWidth={1.8} />
+          <div className="max-w-3xl">
+            <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.18em] text-[#B71932]">
+              Nos domaines d'expertise
+            </p>
+
+            <h2
+              id="services-title"
+              className={`
+                ${spaceGrotesk.className}
+                text-2xl font-bold leading-tight
+                tracking-tight
+                sm:text-3xl lg:text-[38px]
+              `}
+            >
+              Des compétences multiples.
+              <br />
+              <span className="text-[#B71932]">
+                Un même engagement.
+              </span>
+            </h2>
           </div>
 
-          <h3 className="text-sm font-semibold leading-snug text-[#102D50]">
-            {title}
-          </h3>
-        </article>
-      ))}
+          <p className="max-w-xs text-sm leading-6 text-slate-600">
+            Découvrez les neuf domaines d'intervention
+            de JOSUNICO et sélectionnez celui qui
+            correspond à votre besoin.
+          </p>
+        </div>
 
-    </div>
+        {/* Grille des services */}
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
+          {services.map(
+            ({ slug, title, subtitle, Icon, image }) => (
+              <Link
+                key={slug}
+                href={`/services?service=${slug}`}
+                className="
+                  group flex min-h-[142px]
+                  overflow-hidden rounded-xl
+                  border border-slate-200
+                  bg-white shadow-sm
+                  transition-all duration-300
+                  hover:-translate-y-1
+                  hover:border-[#B71932]/30
+                  hover:shadow-lg
+                "
+              >
+                {/* Photo à gauche */}
+                <div className="relative w-[42%] shrink-0 overflow-hidden bg-slate-200">
+                  <div
+                    className="
+                      absolute inset-0
+                      bg-cover bg-center
+                      transition-transform duration-500
+                      group-hover:scale-105
+                    "
+                    style={{
+                      backgroundImage: `url('${image}')`,
+                    }}
+                  />
 
-    {/* Lien vers la présentation détaillée */}
-    <div className="mt-6">
-      <Link
-        href="/a-propos"
-        className="
-          inline-flex items-center gap-2
-          text-sm font-semibold text-[#B71932]
-          transition hover:text-[#092D5A]
-        "
+                  <div className="absolute bottom-0 left-0 h-[3px] w-full bg-[#B71932]" />
+                </div>
+
+                {/* Contenu à droite */}
+                <div className="flex min-w-0 flex-1 flex-col justify-between p-3.5 sm:p-4">
+                  <div>
+                    <div
+                      className="
+                        mb-2 flex h-9 w-9
+                        items-center justify-center
+                        rounded-lg bg-[#EAF2FB]
+                        text-[#1267AC]
+                        transition-colors duration-300
+                        group-hover:bg-[#B71932]
+                        group-hover:text-white
+                      "
+                    >
+                      <Icon size={19} strokeWidth={1.8} />
+                    </div>
+
+                    <p className="mb-1 text-[11px] font-medium text-slate-500">
+                      {subtitle}
+                    </p>
+
+                    <h3 className="text-sm font-semibold leading-snug text-[#102D50] sm:text-[15px]">
+                      {title}
+                    </h3>
+                  </div>
+
+                  <div className="mt-2 flex items-center justify-between">
+                    <span className="text-[11px] font-semibold text-[#B71932]">
+                      En savoir plus
+                    </span>
+
+                    <ArrowUpRight
+                      size={17}
+                      className="
+                        text-[#B71932]
+                        transition-transform duration-300
+                        group-hover:translate-x-1
+                        group-hover:-translate-y-1
+                      "
+                    />
+                  </div>
+                </div>
+              </Link>
+            )
+          )}
+        </div>
+
+        {/* Note sur les photographies */}
+        <p className="mt-4 text-xs leading-5 text-slate-500">
+          Photographies d'illustration provisoires :
+          elles ne représentent pas nécessairement
+          les équipements ou réalisations de JOSUNICO.
+        </p>
+      </section>
+
+      {/* ========================================
+          3. POURQUOI CHOISIR JOSUNICO ?
+          ======================================== */}
+
+      <section
+        className="bg-white px-6 py-9 sm:py-10 lg:px-8"
+        aria-labelledby="why-title"
       >
-        En savoir plus sur JOSUNICO
-        <ArrowRight size={16} />
-      </Link>
-    </div>
+        <div className="mx-auto max-w-7xl">
 
-  </div>
-</section>
+          <div className="mb-5 flex flex-col justify-between gap-3 md:flex-row md:items-end">
+            <div>
+              <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.18em] text-[#B71932]">
+                Notre approche
+              </p>
 
+              <h2
+                id="why-title"
+                className={`
+                  ${spaceGrotesk.className}
+                  text-2xl font-bold tracking-tight
+                  text-[#102D50] sm:text-3xl
+                `}
+              >
+                Pourquoi choisir JOSUNICO ?
+              </h2>
+            </div>
 
-     
+            <p className="max-w-sm text-sm leading-6 text-slate-600">
+              Quatre engagements essentiels pour accompagner vos projets.
+            </p>
+          </div>
+
+          {/* Cartes compactes */}
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            {strengths.map(({ Icon, title }) => (
+              <article
+                key={title}
+                className="
+                  group flex min-h-[76px]
+                  items-center gap-3
+                  rounded-lg border border-slate-200
+                  bg-[#F7F9FC] px-4 py-3
+                  transition-all duration-300
+                  hover:border-[#B71932]/30
+                  hover:bg-white hover:shadow-md
+                "
+              >
+                <div
+                  className="
+                    flex h-10 w-10 shrink-0
+                    items-center justify-center
+                    rounded-lg bg-white
+                    text-[#B71932] shadow-sm
+                  "
+                >
+                  <Icon size={21} strokeWidth={1.8} />
+                </div>
+
+                <h3 className="text-sm font-semibold leading-snug text-[#102D50]">
+                  {title}
+                </h3>
+              </article>
+            ))}
+          </div>
+
+          {/* Lien vers la page À propos */}
+          <div className="mt-5">
+            <Link
+              href="/a-propos"
+              className="
+                inline-flex items-center gap-2
+                text-sm font-semibold text-[#B71932]
+                transition hover:text-[#092D5A]
+              "
+            >
+              En savoir plus sur JOSUNICO
+              <ArrowRight size={16} />
+            </Link>
+          </div>
+
+        </div>
+      </section>
+
     </main>
   );
 }

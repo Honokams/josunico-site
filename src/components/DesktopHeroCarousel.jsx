@@ -29,52 +29,58 @@ const slides = [
 
 export default function DesktopHeroCarousel() {
   const [active, setActive] = useState(0);
-  const [paused, setPaused] = useState(false);
-  const [reducedMotion, setReducedMotion] = useState(true);
+  const [reducedMotion, setReducedMotion] = useState(false);
 
+  // Vérifier les préférences d'accessibilité
   useEffect(() => {
     const media = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
     );
 
     const update = () => setReducedMotion(media.matches);
+
     update();
 
-    media.addEventListener("change", update);
-    return () => media.removeEventListener("change", update);
+    media.addEventListener?.("change", update);
+
+    return () => {
+      media.removeEventListener?.("change", update);
+    };
   }, []);
 
+  // Défilement automatique
   useEffect(() => {
-    if (paused || reducedMotion) return;
+    if (reducedMotion) return;
 
-    const interval = window.setInterval(() => {
-      setActive((previous) => (previous + 1) % slides.length);
-    }, 6500);
+    const timer = window.setInterval(() => {
+      setActive((current) => (current + 1) % slides.length);
+    }, 6000);
 
-    return () => window.clearInterval(interval);
-  }, [paused, reducedMotion]);
+    return () => window.clearInterval(timer);
+  }, [reducedMotion]);
 
   return (
     <div
-      className="absolute inset-0 hidden overflow-hidden lg:block"
+      className="
+        pointer-events-none absolute inset-0
+        hidden overflow-hidden lg:block
+      "
       aria-label="Illustrations des activités de JOSUNICO"
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
     >
-      {/* IMAGES AVEC FONDU PROGRESSIF */}
+      {/* IMAGES */}
       {slides.map((slide, index) => (
         <div
           key={slide.src}
+          aria-hidden="true"
           className={`
             absolute inset-0
-            transition-opacity duration-[1600ms] ease-in-out
+            transition-opacity duration-[1400ms] ease-in-out
             ${
               active === index
                 ? "opacity-100"
                 : "opacity-0"
             }
           `}
-          aria-hidden="true"
         >
           <Image
             src={slide.src}
@@ -82,60 +88,47 @@ export default function DesktopHeroCarousel() {
             fill
             priority={index === 0}
             sizes="100vw"
-            className={`
+            className="
               object-cover object-center
-              motion-safe:transition-transform
-              motion-safe:duration-[7000ms]
-              motion-safe:ease-linear
-              ${
-                active === index && !reducedMotion
-                  ? "scale-[1.05]"
-                  : "scale-100"
-              }
-            `}
+            "
           />
         </div>
       ))}
 
-      {/* PROTECTION DU TEXTE :
-          bleu plus dense à gauche,
-          photographie visible à droite */}
+      {/* DÉGRADÉ BLEU LÉGER */}
       <div
         aria-hidden="true"
         className="
-          pointer-events-none absolute inset-0
+          absolute inset-0
           bg-gradient-to-r
-          from-[#061D3C]/95
-          via-[#061D3C]/85
-          to-[#061D3C]/20
+          from-[#092D5A]/70
+          via-[#092D5A]/35
+          to-transparent
         "
       />
 
-      {/* OMBRE DISCRÈTE EN BAS */}
+      {/* INDICATEURS */}
       <div
-        aria-hidden="true"
         className="
-          pointer-events-none absolute inset-x-0 bottom-0
-          h-32 bg-gradient-to-t
-          from-[#061D3C]/35 to-transparent
+          pointer-events-auto absolute
+          bottom-6 right-8 z-20
+          flex items-center gap-2
         "
-      />
-
-      {/* INDICATEURS DISCRETS */}
-      <div className="absolute bottom-7 right-8 z-10 flex gap-2">
+      >
         {slides.map((slide, index) => (
           <button
             key={slide.src}
             type="button"
+            onClick={() => setActive(index)}
             aria-label={`Afficher l'image ${index + 1}`}
             aria-current={active === index ? "true" : undefined}
-            onClick={() => setActive(index)}
             className={`
-              h-1.5 rounded-full transition-all
+              h-2 rounded-full
+              transition-all duration-300
               ${
                 active === index
                   ? "w-8 bg-[#B71932]"
-                  : "w-3 bg-white/60 hover:bg-white"
+                  : "w-3 bg-white/70 hover:bg-white"
               }
             `}
           />
