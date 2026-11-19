@@ -46,7 +46,7 @@ export default function Header() {
           aria-label="JOSUNICO - Accueil"
         >
           <Image
-            src="/images/branding/josunico-logo-branding.png"
+            src="/images/branding/josunico-logo-hero.png"
             alt="JOSUNICO SARL"
             width={220}
             height={80}
