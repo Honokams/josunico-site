@@ -16,31 +16,31 @@ const slides = [
   {
     title: "Génie civil & BTP",
     subtitle: "Nous accompagnons vos projets de construction.",
-    image: "/images/hero/mobile-genie-civil.png",
+    image: "/images/hero/mobile-genie-civil.webp",
     slug: "genie-civil",
   },
   {
     title: "Forage d'eau potable",
     subtitle: "Des solutions pour faciliter l'accès à l'eau.",
-    image: "/images/hero/mobile-forage-eau.png",
+    image: "/images/hero/mobile-forage-eau.webp",
     slug: "forage-eau",
   },
   {
     title: "Logistique & transport",
     subtitle: "Des solutions adaptées à vos besoins logistiques.",
-    image: "/images/hero/mobile-logistique.png",
+    image: "/images/hero/mobile-logistique.webp",
     slug: "logistique",
   },
   {
     title: "Construction",
     subtitle: "Un accompagnement dans vos projet de construction.",
-    image: "/images/hero/mobile-construction.png",
+    image: "/images/hero/mobile-construction.webp",
     slug: "genie-civil",
   },
   {
     title: "Support informatique",
     subtitle: "Un accompagnement pour vos systèmes et réseaux.",
-    image: "/images/hero/mobile-informatique.png",
+    image: "/images/hero/mobile-informatique.webp",
     slug: "informatique",
   },
 ];

@@ -6,23 +6,23 @@ import Image from "next/image";
 
 const slides = [
   {
-    src: "/images/hero/mobile-construction.png",
+    src: "/images/hero/mobile-construction.webp",
     alt: "Ingénieurs sur un chantier de construction",
   },
   {
-    src: "/images/hero/mobile-genie-civil.png",
+    src: "/images/hero/mobile-genie-civil.webp",
     alt: "Illustration du génie civil",
   },
   {
-    src: "/images/hero/mobile-forage-eau.png",
+    src: "/images/hero/mobile-forage-eau.webp",
     alt: "Illustration du forage d'eau potable",
   },
   {
-    src: "/images/hero/mobile-logistique.png",
+    src: "/images/hero/mobile-logistique.webp",
     alt: "Illustration du transport et de la logistique",
   },
   {
-    src: "/images/hero/mobile-informatique.png",
+    src: "/images/hero/mobile-informatique.webp",
     alt: "Illustration du support informatique",
   },
 ];

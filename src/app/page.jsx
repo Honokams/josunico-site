@@ -3,6 +3,7 @@ import MobileHeroCarousel from "../components/MobileHeroCarousel";
 import DesktopHeroCarousel from "../components/DesktopHeroCarousel";
 
 import Link from "next/link";
+import Image from "next/image";
 import { Space_Grotesk } from "next/font/google";
 
 import {
@@ -152,48 +153,56 @@ export default function Home() {
         >
           <div className="max-w-[650px]">
 
-            {/* Identité */}
-            <div className="mb-4 flex items-center gap-3">
-              <span className="h-[2px] w-8 bg-[#FF6676]" />
+            
+{/* LOGO OFFICIEL JOSUNICO */}
+<h1
+  id="hero-title"
+  className="relative m-0 w-fit leading-none"
+>
+  <span className="sr-only">
+    JOSUNICO SARL — Entreprise multiservices
+  </span>
 
-              <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-white/90 sm:text-xs">
-                Entreprise multiservices · RDC
-              </p>
-            </div>
+  <div
+    className="
+      relative flex items-center
+      h-[65px] w-[210px]
+      sm:h-[75px] sm:w-[250px]
+      lg:h-[85px] lg:w-[290px]
+    "
+  >
+    <Image
+      src="/images/branding/josunico-logo-hero.png"
+      alt=""
+      fill
+      priority
+      sizes="(max-width: 640px) 210px, (max-width: 1024px) 250px, 290px"
+      className="
+        object-contain object-left
+        drop-shadow-[0_2px_6px_rgba(255,255,255,0.25)]
+      "
+    />
+  </div>
+</h1>
 
-            {/* Nom de l'entreprise */}
-            <h1
-              id="hero-title"
-              className={`
-                ${spaceGrotesk.className}
-                text-[clamp(2.9rem,9vw,4.7rem)]
-                font-bold leading-[1.02]
-                tracking-[-0.055em]
-                text-[#B71932]
-                drop-shadow-[0_3px_8px_rgba(0,0,0,0.6)]
-                lg:text-[78px]
-              `}
-            >
-              JOSUNICO
-            </h1>
+{/* SLOGAN */}
+<h2
+  className={`
+    ${spaceGrotesk.className}
+    mt-5 max-w-[610px]
+    text-[clamp(1.65rem,5.5vw,2.5rem)]
+    font-semibold leading-[1.18]
+    tracking-[-0.035em]
+    text-white
+    drop-shadow-[0_3px_10px_rgba(0,0,0,0.75)]
+    lg:mt-6 lg:text-[42px]
+  `}
+>
+  Bâtir, Accompagner
+  <br className="hidden sm:block" />
+  {" "}et Innover.
+</h2>
 
-            {/* Slogan */}
-            <h2
-              className={`
-                ${spaceGrotesk.className}
-                mt-3 max-w-[610px]
-                text-[clamp(1.5rem,5.5vw,2.4rem)]
-                font-semibold leading-[1.16]
-                tracking-[-0.04em]
-                text-white
-                drop-shadow-[0_3px_10px_rgba(0,0,0,0.8)]
-                lg:text-[40px]
-              `}
-            >
-              Bâtir, Accompagner
-              <br className="hidden sm:block" />
-              {" "}et Innover.
-            </h2>
 
             {/* Description */}
             <p
