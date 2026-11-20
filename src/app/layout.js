@@ -4,8 +4,9 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
 export const metadata = {
-  title: "JOSUNICO SARL — Bâtir, accompagner et innover",
-  description: "Plateforme officielle de Jospie Universal Investments in Congo SARL à Lubumbashi.",
+  title: "JOSUNICO | Bâtir, Accompagner et Innover",
+  description:
+    "JOSUNICO - Jospie Universal Investments in Congo SARL",
 };
 
 export default function RootLayout({ children }) {
