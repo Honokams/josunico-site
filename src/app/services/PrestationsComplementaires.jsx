@@ -1,7 +1,4 @@
 // 11 prestations distinctes, complémentaires aux neuf domaines principaux.
-// Les photographies Pexels sont provisoires.
-const photo = (id) =>
-  `https://images.pexels.com/photos/${id}/pexels-photo-${id}.jpeg?auto=compress&cs=tinysrgb&w=900`;
 
 const prestations = [
   // CONSTRUCTION ET GÉNIE CIVIL
@@ -9,7 +6,8 @@ const prestations = [
     id: "decoration",
     title: "Peinture et décoration des bâtiments",
     category: "Construction",
-    image: photo(2219024),
+    image: "/images/services/peinture-decoration-card.webp",
+    detailImage: "/images/services/peinture-decoration-detail.webp",
     description:
       "Peinture intérieure et extérieure, décoration, design et travaux de finition des bâtiments.",
   },
@@ -19,7 +17,8 @@ const prestations = [
     id: "plomberie",
     title: "Plomberie domestique et industrielle",
     category: "Industrie",
-    image: photo(8486972),
+    image: "/images/services/plomberie-card.webp",
+    detailImage: "/images/services/plomberie-detail.webp",
     description:
       "Installation, entretien et intervention sur les réseaux de plomberie et les équipements associés.",
   },
@@ -27,7 +26,8 @@ const prestations = [
     id: "service-froid",
     title: "Service froid et climatisation",
     category: "Industrie",
-    image: photo(4483610),
+    image: "/images/services/froid-climatisation-card.webp",
+    detailImage: "/images/services/froid-climatisation-detail.webp",
     description:
       "Prestations relatives aux équipements de froid et de climatisation, notamment leur installation et leur entretien.",
   },
@@ -35,7 +35,8 @@ const prestations = [
     id: "soudure",
     title: "Soudure et ajustage",
     category: "Industrie",
-    image: photo(159306),
+    image: "/images/services/soudure-ajustage-card.webp",
+    detailImage: "/images/services/soudure-ajustage-detail.webp",
     description:
       "Travaux de soudure, d’assemblage, d’ajustage et d’intervention sur des éléments métalliques.",
   },
@@ -43,7 +44,8 @@ const prestations = [
     id: "genie-electrique",
     title: "Génie électrique",
     category: "Industrie",
-    image: photo(257700),
+    image: "/images/services/genie-electrique-card.webp",
+    detailImage: "/images/services/genie-electrique-detail.webp",
     description:
       "Travaux d’installation, de maintenance et d’intervention sur des équipements et systèmes électriques.",
   },
@@ -51,7 +53,8 @@ const prestations = [
     id: "mecanique",
     title: "Mécanique et maintenance industrielle",
     category: "Industrie",
-    image: photo(4483610),
+    image: "/images/services/maintenance-industrielle-detail.webp",
+    detailImage: "/images/services/maintenance-industrielle-card.webp",
     description:
       "Interventions mécaniques et travaux de maintenance sur les équipements et installations industriels.",
   },
@@ -61,7 +64,8 @@ const prestations = [
     id: "amenagement-paysager",
     title: "Aménagement paysager",
     category: "Environnement",
-    image: photo(159306),
+    image: "/images/services/amenagement-paysager-detail.webp",
+    detailImage: "/images/services/entretien-espaces-verts.webp",
     description:
       "Aménagement des espaces extérieurs et travaux paysagers intégrés aux projets de construction.",
   },
@@ -69,7 +73,8 @@ const prestations = [
     id: "nettoyage",
     title: "Nettoyage et entretien professionnel",
     category: "Environnement",
-    image: photo(4483610),
+    image: "/images/services/nettoyage-professionnel-card.webp",
+    detailImage: "/images/services/nettoyage-professionnel-detail.webp",
     description:
       "Nettoyage de bureaux, dépôts, complexes commerciaux, espaces professionnels et lieux de travail.",
   },
@@ -77,7 +82,8 @@ const prestations = [
     id: "nettoyage-auto",
     title: "Nettoyage automobile",
     category: "Environnement",
-    image: photo(4483610),
+    image: "/images/services/nettoyage-automobile-card.webp",
+    detailImage: "/images/services/nettoyage-automobile-detail.webp",
     description:
       "Prestations de nettoyage de véhicules : moteurs, sièges, plafonds, tapis et autres surfaces.",
   },
@@ -87,7 +93,8 @@ const prestations = [
     id: "commerce-general",
     title: "Commerce général",
     category: "Services généraux",
-    image: photo(4483610),
+    image: "/images/services/commerce-general-card.webp",
+    detailImage: "/images/services/commerce-general-detail.webp",
     description:
       "Activités de commerce général : recherche de produits, achat et fourniture de biens adaptés aux besoins des clients, au-delà du transport.",
   },
@@ -95,7 +102,8 @@ const prestations = [
     id: "gestion-personnel",
     title: "Conseil et gestion du personnel",
     category: "Services généraux",
-    image: photo(3184465),
+    image: "/images/services/conseil-personnel-card.webp",
+    detailImage: "/images/services/conseil-personnel-detail.webp",
     description:
       "Conseil sur l’organisation des équipes et accompagnement dans la mobilisation des ressources humaines adaptées aux projets.",
   },

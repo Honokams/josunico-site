@@ -6,7 +6,7 @@ import Image from "next/image";
 
 const slides = [
   {
-    src: "/images/hero/mobile-construction.webp",
+    src: "/images/hero/josunico-hero.png",
     alt: "Ingénieurs sur un chantier de construction",
   },
   {
@@ -89,7 +89,7 @@ export default function DesktopHeroCarousel() {
             priority={index === 0}
             sizes="100vw"
             className="
-              object-cover object-center
+              object-cover object-top
             "
           />
         </div>

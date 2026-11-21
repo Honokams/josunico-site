@@ -16,6 +16,7 @@ const services = [
     title: "Production d’eau minérale Aqua-Life",
     shortTitle: "Production d’eau minérale Aqua-Life",
     image: "/images/services/aqua-life.webp",
+    detailImage: "/images/services/conditionnement-eau-detail.webp",
     icon: Droplets,
     description:
       "Aqua-Life est la marque d’eau minérale de JOSUNICO. Ce domaine est consacré à la production et à la commercialisation d’eau destinée à la consommation.",
@@ -30,6 +31,7 @@ const services = [
     title: "Aménagement et assainissement",
     shortTitle: "Aménagement et assainissement",
     image: "/images/services/assainissement.webp",
+    detailImage: "/images/services/drainage-canalisations-detail.webp",
     icon: Leaf,
     description:
       "JOSUNICO intervient dans l’aménagement et l’assainissement de l’environnement, notamment à travers les travaux de drainage, de canalisation, de nettoyage et d’entretien.",
@@ -46,6 +48,7 @@ const services = [
     title: "Gestion du personnel",
     shortTitle: "Gestion du personnel",
     image: "/images/services/personnel.webp",
+    detailImage: "/images/services/relations-professionnelles-detail.webp",
     icon: Users,
     description:
       "JOSUNICO accorde une importance particulière à la mobilisation de personnes qualifiées, à la bonne organisation du travail et à l’accompagnement des équipes.",
@@ -61,6 +64,7 @@ const services = [
     title: "Génie civil et BTP",
     shortTitle: "Génie civil & BTP",
     image: "/images/services/genie-civil.webp",
+    detailImage: "/images/services/construction-batiments-detail.webp",
     icon: HardHat,
     description:
       "JOSUNICO propose des services de consultance et d’exécution dans le domaine du génie civil, depuis les études techniques jusqu’à la réalisation et à la supervision des travaux.",
@@ -77,6 +81,7 @@ const services = [
     title: "Forage minier",
     shortTitle: "Forage minier",
     image: "/images/services/forage-minier.webp",
+    detailImage: "/images/services/forage-minier-detail.webp",
     icon: Pickaxe,
     description:
       "JOSUNICO présente une offre de forage destinée aux activités d’exploration et d’exploitation minières, avec différentes techniques adaptées aux exigences des projets.",
@@ -93,6 +98,7 @@ const services = [
     title: "Forage d’eau potable",
     shortTitle: "Forage d’eau potable",
     image: "/images/services/forage-eau.webp",
+    detailImage: "/images/services/forage-eau-detail.webp",
     icon: Droplets,
     description:
       "JOSUNICO intervient dans les travaux de forage permettant l’accès aux ressources en eau souterraine, pour répondre aux besoins des particuliers et des organisations.",
@@ -108,6 +114,7 @@ const services = [
     title: "Logistique et transport",
     shortTitle: "Logistique & transport",
     image: "/images/services/logistique.webp",
+    detailImage: "/images/services/logistique-manutention-detail.webp",
     icon: Truck,
     description:
       "JOSUNICO propose des prestations liées à la logistique, au transport et au commerce général pour accompagner les besoins d’approvisionnement et les opérations de ses clients.",
@@ -123,6 +130,7 @@ const services = [
     title: "Support informatique",
     shortTitle: "Support informatique",
     image: "/images/services/informatique.webp",
+    detailImage: "/images/services/informatique-detail.webp",
     icon: Monitor,
     description:
       "JOSUNICO propose des prestations d’architecture, d’installation, de maintenance et de gestion des infrastructures informatiques et des réseaux d’entreprise.",
@@ -139,6 +147,7 @@ const services = [
     title: "Fourniture de biens et services",
     shortTitle: "Fourniture de biens & services",
     image: "/images/services/fournitures.webp",
+    detailImage: "/images/services/fourniture-detail.webp",
     icon: Package,
     description:
       "JOSUNICO fournit différents équipements, matériels et accessoires destinés aux entreprises, aux chantiers et aux activités industrielles.",
@@ -217,10 +226,10 @@ export default function ServicesPage() {
           <div className="max-w-2xl">
             <p className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-[#FFB4BC]">Nos domaines d’intervention</p>
             <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl">Nos services</h1>
-            <p className="mt-4 max-w-xl text-sm leading-6 text-white/90 sm:text-base">Découvrez les domaines d’expertise de JOSUNICO. Sélectionnez un service pour consulter ses prestations et ses principales activités.</p>
+            <p className="mt-4 max-w-xl text-sm leading-6 text-white/90 sm:text-base">Découvrez nos domaines d’expertise. Sélectionnez un service pour consulter ses prestations et ses principales activités.</p>
           </div>
         </div>
-        <div className="absolute bottom-0 left-0 h-1 w-28 bg-[#B71932]" />
+        
       </section>
 
       <section className="mx-auto max-w-7xl px-4 py-9 sm:px-6 lg:px-8">
@@ -258,9 +267,9 @@ export default function ServicesPage() {
                 className={`group flex min-h-[112px] items-center gap-3 rounded-xl border bg-white p-2 text-left shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#B71932] ${isSelected ? "border-[#B71932] ring-1 ring-[#B71932]" : "border-slate-200 hover:border-[#B71932]/50"}`}>
                 <div className="relative h-[92px] w-[105px] shrink-0 overflow-hidden rounded-lg bg-slate-100 sm:w-[100px]">
                   {service.image.startsWith("/") ? (
-                    <Image src={service.image} alt="" fill sizes="(max-width: 640px) 105px, 100px" className="object-cover transition-transform duration-300 group-hover:scale-105" />
+                    <Image src={service.image} alt={service.title} fill sizes="(max-width: 640px) 105px, 100px" className="object-cover transition-transform duration-300 group-hover:scale-105" />
                   ) : (
-                    <img src={service.image} alt="" loading="lazy" className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105" />
+                    <img src={service.image} alt={service.title} loading="lazy" className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105" />
                   )}
                 </div>
                 <div className="min-w-0 flex-1">
@@ -286,41 +295,125 @@ export default function ServicesPage() {
 
         {/* MÊME FICHE POUR TOUTES LES CARTES */}
         {detailOpen && (
-          <div id="service-detail" className="mt-7 scroll-mt-24 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm" aria-live="polite">
-            <div className="grid lg:grid-cols-[0.95fr_1.3fr]">
-              <div className="relative min-h-[250px] bg-slate-100 sm:min-h-[320px] lg:min-h-[360px]">
-                {selectedService.image.startsWith("/") ? (
-                  <Image key={selectedService.id} src={selectedService.image} alt={selectedService.title} fill sizes="(max-width: 1024px) 100vw, 45vw" className="object-cover" />
-                ) : (
-                  <img key={selectedService.id} src={selectedService.image} alt={selectedService.title} loading="lazy" className="absolute inset-0 h-full w-full object-cover" />
-                )}
+          
+        <div
+          id="service-detail"
+          className="mt-7 scroll-mt-24 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm"
+          aria-live="polite"
+        >
+          <div className="grid lg:grid-cols-[0.95fr_1.3fr]">
+            <div className="relative min-h-[250px] bg-slate-100 sm:min-h-[320px] lg:min-h-[360px]">
+              {(selectedService.detailImage ?? selectedService.image).startsWith("/") ? (
+                <Image
+                  key={selectedService.id}
+                  src={selectedService.detailImage ?? selectedService.image}
+                  alt={selectedService.title}
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 45vw"
+                  className="object-cover"
+                />
+              ) : (
+                <img
+                  key={selectedService.id}
+                  src={selectedService.detailImage ?? selectedService.image}
+                  alt={selectedService.title}
+                  loading="lazy"
+                  className="absolute inset-0 h-full w-full object-cover"
+                />
+              )}
+            </div>
+
+            <div className="flex flex-col justify-center p-6 sm:p-9">
+              <div className="mb-4 flex items-center gap-3">
+                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#B71932]/10 text-[#B71932]">
+                  <SelectedIcon size={25} aria-hidden="true" />
+                </span>
+                <span className="text-xs font-bold uppercase tracking-[0.15em] text-[#B71932]">
+                  {selectedService.category}
+                </span>
               </div>
-              <div className="flex flex-col justify-center p-6 sm:p-9">
-                <div className="mb-4 flex items-center gap-3">
-                  <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#B71932]/10 text-[#B71932]"><SelectedIcon size={25} aria-hidden="true" /></span>
-                  <span className="text-xs font-bold uppercase tracking-[0.15em] text-[#B71932]">{selectedService.category}</span>
-                </div>
-                <h2 className="text-2xl font-extrabold leading-tight text-[#092D5A] sm:text-3xl">{selectedService.title}</h2>
-                <p className="mt-4 text-sm leading-7 text-slate-600 sm:text-base">{selectedService.description}</p>
-                {selectedService.points.length > 0 && (
-                  <ul className="mt-5 grid gap-3">
-                    {selectedService.points.map((point) => (
-                      <li key={point} className="flex items-start gap-3 text-sm text-slate-700">
-                        <CheckCircle2 size={18} className="mt-0.5 shrink-0 text-[#B71932]" aria-hidden="true" />
-                        <span>{point}</span>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-                <div className="mt-7 flex flex-wrap items-center gap-5">
-                  <Link href={`/contact?service=${selectedService.id}`} className="inline-flex items-center justify-center gap-2 rounded-full bg-[#B71932] px-6 py-3 text-sm font-bold text-white shadow-sm transition-colors hover:bg-[#99142A]">
-                    Demander un devis <ArrowRight size={17} aria-hidden="true" />
-                  </Link>
-                  <button type="button" onClick={() => setDetailOpen(false)} className="text-sm font-bold text-[#092D5A] hover:underline">Fermer les détails</button>
-                </div>
+
+              <h2 className="text-2xl font-extrabold leading-tight text-[#092D5A] sm:text-3xl">
+                {selectedService.title}
+              </h2>
+
+              <p className="mt-4 text-sm leading-7 text-slate-600 sm:text-base">
+                {selectedService.description}
+              </p>
+
+              {selectedService.points.length > 0 && (
+                <ul className="mt-5 grid gap-3">
+                  {selectedService.points.map((point) => (
+                    <li
+                      key={point}
+                      className="flex items-start gap-3 text-sm text-slate-700"
+                    >
+                      <CheckCircle2
+                        size={18}
+                        className="mt-0.5 shrink-0 text-[#B71932]"
+                        aria-hidden="true"
+                      />
+                      <span>{point}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+
+              <div className="mt-7 flex flex-wrap items-center gap-5">
+                <Link
+                  href={`/contact?service=${selectedService.id}`}
+                  className="inline-flex items-center justify-center gap-2 rounded-full bg-[#B71932] px-6 py-3 text-sm font-bold text-white shadow-sm transition-colors hover:bg-[#99142A]"
+                >
+                  Demander un devis
+                  <ArrowRight size={17} aria-hidden="true" />
+                </Link>
+
+                <button
+                  type="button"
+                  onClick={() => setDetailOpen(false)}
+                  className="text-sm font-bold text-[#092D5A] hover:underline"
+                >
+                  Fermer les détails
+                </button>
               </div>
             </div>
           </div>
+
+          {/* SPOT PUBLICITAIRE : UNIQUEMENT POUR AQUA-LIFE */}
+          {selectedService.id === "aqua-life" && (
+            <div className="border-t border-slate-200 bg-[#F5F7FA] px-5 py-7 sm:px-9">
+              <div className="mx-auto max-w-4xl">
+                <div className="mb-5 text-center">              
+                  <h3 className="mt-2 text-xl font-extrabold text-[#092D5A] sm:text-2xl">
+                    Découvrez Aqua-Life en vidéo
+                  </h3>
+
+                  <p className="mt-2 text-sm text-slate-600">
+                    Découvrez notre marque Aqua-Life à travers son spot publicitaire.
+                  </p>
+                </div>
+
+                <div className="overflow-hidden rounded-xl bg-black shadow-md">
+                  <video
+                    key={selectedService.id}
+                    controls
+                    playsInline
+                    preload="metadata"
+                    poster="/images/services/conditionnement-eau-detail.webp"
+                    className="aspect-video w-full object-contain"
+                  >
+                    <source
+                      src="/videos/aqua-life-spot.mp4"
+                      type="video/mp4"
+                    />
+                    Votre navigateur ne prend pas en charge la lecture vidéo.
+                  </video>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+
         )}
 
         {/* RAPPEL DE CONTACT */}
