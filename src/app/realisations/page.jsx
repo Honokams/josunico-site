@@ -23,7 +23,6 @@ const categories = [
 ];
 
 // Photographies temporaires déjà disponibles dans le projet.
-// Remplacer progressivement par des réalisations authentiques.
 const gallery = [
   {
     id: 1,
@@ -100,23 +99,43 @@ const shapes = {
 const heroSlides = [
   {
     id: 1,
-    image: "/images/services/genie-civil.webp",
-    alt: "Construction et génie civil",
+    image: "/images/realisations/amenagement-assainissement.webp",
+    alt: "Amenagement et assainissement",
   },
   {
     id: 2,
-    image: "/images/services/forage-minier.webp",
-    alt: "Travaux de forage minier",
+    image: "/images/realisations/aqua-life.webp",
+    alt: "Production d'eau minerale",
   },
   {
     id: 3,
-    image: "/images/services/assainissement.webp",
-    alt: "Aménagement et assainissement",
+    image: "/images/realisations/forage-eau-potable.webp",
+    alt: "forage d'eau potable",
   },
   {
     id: 4,
-    image: "/images/services/logistique.webp",
+    image: "/images/realisations/logistique-transport.webp",
     alt: "Logistique et transport",
+  },
+  {
+    id: 5,
+    image: "/images/realisations/fourniture-biens-services.webp",
+    alt: "Fourniture de biens et services",
+  },
+  {
+    id: 6,
+    image: "/images/realisations/genie-civil-btp.webp",
+    alt: "Genie civil & btp",
+  },
+  {
+    id: 7,
+    image: "/images/realisations/support-informatique.webp",
+    alt: "Support informatique",
+  },
+  {
+    id: 8,
+    image: "/images/realisations/forage-minier.webp",
+    alt: "Forage minier",
   },
 ];
 
