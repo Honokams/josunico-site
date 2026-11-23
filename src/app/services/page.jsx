@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import PrestationsComplementaires from "./PrestationsComplementaires";
+import { useLanguage } from "@/context/LanguageContext";
 import {
   ArrowRight, CheckCircle2, ChevronRight, ChevronDown, ChevronUp,
   Filter, Droplets, Leaf, Users, HardHat, Pickaxe, Truck,
@@ -187,16 +188,25 @@ const allServices = [
 ];
 
 export default function ServicesPage() {
+  const { t } = useLanguage();
+  const tr = t.servicesPage;
+  // IDs et catégories techniques restent stables dans les deux langues.
+  const translatedServices = allServices.map((service) => {
+    const translation = service.principal
+      ? tr.main[service.id]
+      : tr.additional[service.id];
+    return { ...service, ...translation };
+  });
   const [activeCategory, setActiveCategory] = useState("Tous");
   const [showAll, setShowAll] = useState(false);
   const [selectedId, setSelectedId] = useState("aqua-life");
   const [detailOpen, setDetailOpen] = useState(false);
 
   const filtered = activeCategory === "Tous"
-    ? allServices
-    : allServices.filter((service) => service.category === activeCategory);
+    ? translatedServices
+    : translatedServices.filter((service) => service.category === activeCategory);
   const visible = showAll ? filtered : filtered.slice(0, 9);
-  const selectedService = allServices.find((service) => service.id === selectedId) ?? allServices[0];
+  const selectedService = translatedServices.find((service) => service.id === selectedId) ?? translatedServices[0];
   const SelectedIcon = selectedService.icon;
   const remaining = Math.max(0, filtered.length - 9);
 
@@ -224,9 +234,9 @@ export default function ServicesPage() {
         </div>
         <div className="relative mx-auto flex min-h-[230px] max-w-7xl items-center px-5 py-12 sm:px-8 lg:min-h-[280px]">
           <div className="max-w-2xl">
-            <p className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-[#FFB4BC]">Nos domaines d’intervention</p>
-            <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl">Nos services</h1>
-            <p className="mt-4 max-w-xl text-sm leading-6 text-white/90 sm:text-base">Découvrez nos domaines d’expertise. Sélectionnez un service pour consulter ses prestations et ses principales activités.</p>
+            <p className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-[#FFB4BC]">{tr.heroEyebrow}</p>
+            <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl">{tr.heroTitle}</h1>
+            <p className="mt-4 max-w-xl text-sm leading-6 text-white/90 sm:text-base">{tr.heroDescription}</p>
           </div>
         </div>
         
@@ -234,12 +244,12 @@ export default function ServicesPage() {
 
       <section className="mx-auto max-w-7xl px-4 py-9 sm:px-6 lg:px-8">
         <div className="mb-6">
-          <h2 className="text-2xl font-extrabold text-[#092D5A] sm:text-3xl">Nos domaines d’expertise</h2>
-          <p className="mt-2 text-sm text-slate-600">Découvrez nos neuf domaines principaux et l’ensemble de nos prestations spécialisées.</p>
+          <h2 className="text-2xl font-extrabold text-[#092D5A] sm:text-3xl">{tr.expertiseTitle}</h2>
+          <p className="mt-2 text-sm text-slate-600">{tr.expertiseDescription}</p>
         </div>
 
         {/* UN SEUL FILTRE POUR TOUS LES SERVICES */}
-        <div className="mb-5 flex flex-wrap items-center gap-2" aria-label="Filtrer les services">
+        <div className="mb-5 flex flex-wrap items-center gap-2" aria-label={tr.filterLabel}>
           <Filter size={18} className="mr-1 text-[#092D5A]" aria-hidden="true" />
           {categories.map((category) => (
             <button key={category} type="button" onClick={() => changeCategory(category)}
@@ -247,13 +257,13 @@ export default function ServicesPage() {
               className={`rounded-full border px-4 py-2 text-xs font-bold transition-colors sm:text-sm ${activeCategory === category
                 ? "border-[#B71932] bg-[#B71932] text-white"
                 : "border-slate-200 bg-white text-[#092D5A] hover:border-[#B71932]"}`}>
-              {category}
+              {tr.categories[category]}
             </button>
           ))}
         </div>
         <p className="mb-5 text-sm text-slate-500" aria-live="polite">
-          {filtered.length} service{filtered.length > 1 ? "s" : ""} dans cette catégorie
-          {!showAll && remaining > 0 ? ` · ${visible.length} affichés` : ""}
+          {filtered.length} {filtered.length === 1 ? tr.serviceSingular : tr.servicePlural} {tr.inCategory}
+          {!showAll && remaining > 0 ? ` · ${visible.length} ${tr.displayed}` : ""}
         </p>
 
         {/* LES 9 DOMAINES, PUIS LES PRESTATIONS, DANS LA MÊME GRILLE */}
@@ -274,7 +284,11 @@ export default function ServicesPage() {
                 </div>
                 <div className="min-w-0 flex-1">
                   <Icon size={20} strokeWidth={2} className={`mb-2 ${isSelected ? "text-[#B71932]" : "text-[#092D5A]"}`} aria-hidden="true" />
-                  <h3 className="text-[13px] font-bold leading-snug text-[#092D5A] sm:text-sm">{service.shortTitle}</h3>
+                  <h3 className="text-[13px] font-bold leading-snug text-[#092D5A] sm:text-sm">
+                    {service.principal
+                      ? (service.shortTitle ?? service.title)
+                      : service.title}
+                  </h3>
                 </div>
                 <span className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-white transition-colors ${isSelected ? "bg-[#B71932]" : "bg-[#092D5A] group-hover:bg-[#B71932]"}`}>
                   <ChevronRight size={17} aria-hidden="true" />
@@ -288,7 +302,7 @@ export default function ServicesPage() {
           <div className="mt-7 flex justify-center">
             <button type="button" onClick={() => { setShowAll((current) => !current); setDetailOpen(false); }} aria-expanded={showAll}
               className="inline-flex items-center gap-2 rounded-full bg-[#B71932] px-7 py-3 text-sm font-bold text-white shadow-sm transition-colors hover:bg-[#99142A]">
-              {showAll ? <>Voir moins de services <ChevronUp size={18} /></> : <>Voir plus de services ({remaining}) <ChevronDown size={18} /></>}
+              {showAll ? <>{tr.showLess} <ChevronUp size={18} /></> : <>{tr.showMore} ({remaining}) <ChevronDown size={18} /></>}
             </button>
           </div>
         )}
@@ -329,7 +343,7 @@ export default function ServicesPage() {
                   <SelectedIcon size={25} aria-hidden="true" />
                 </span>
                 <span className="text-xs font-bold uppercase tracking-[0.15em] text-[#B71932]">
-                  {selectedService.category}
+                  {tr.categories[selectedService.category]}
                 </span>
               </div>
 
@@ -364,7 +378,7 @@ export default function ServicesPage() {
                   href={`/contact?service=${selectedService.id}`}
                   className="inline-flex items-center justify-center gap-2 rounded-full bg-[#B71932] px-6 py-3 text-sm font-bold text-white shadow-sm transition-colors hover:bg-[#99142A]"
                 >
-                  Demander un devis
+                  {tr.requestQuote}
                   <ArrowRight size={17} aria-hidden="true" />
                 </Link>
 
@@ -373,7 +387,7 @@ export default function ServicesPage() {
                   onClick={() => setDetailOpen(false)}
                   className="text-sm font-bold text-[#092D5A] hover:underline"
                 >
-                  Fermer les détails
+                  {tr.closeDetails}
                 </button>
               </div>
             </div>
@@ -385,11 +399,11 @@ export default function ServicesPage() {
               <div className="mx-auto max-w-4xl">
                 <div className="mb-5 text-center">              
                   <h3 className="mt-2 text-xl font-extrabold text-[#092D5A] sm:text-2xl">
-                    Découvrez Aqua-Life en vidéo
+                    {tr.videoTitle}
                   </h3>
 
                   <p className="mt-2 text-sm text-slate-600">
-                    Découvrez notre marque Aqua-Life à travers son spot publicitaire.
+                    {tr.videoDescription}
                   </p>
                 </div>
 
@@ -406,7 +420,7 @@ export default function ServicesPage() {
                       src="/videos/aqua-life-spot.mp4"
                       type="video/mp4"
                     />
-                    Votre navigateur ne prend pas en charge la lecture vidéo.
+                    {tr.videoUnsupported}
                   </video>
                 </div>
               </div>
@@ -419,17 +433,17 @@ export default function ServicesPage() {
         {/* RAPPEL DE CONTACT */}
         <div className="mt-8 flex flex-col gap-4 rounded-xl border border-[#092D5A]/10 bg-white px-6 py-5 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h2 className="text-lg font-extrabold text-[#092D5A]">Un projet à concrétiser ?</h2>
-            <p className="mt-1 text-sm text-slate-600">Contactez JOSUNICO pour échanger sur vos besoins et les prestations adaptées à votre activité.</p>
+            <h2 className="text-lg font-extrabold text-[#092D5A]">{tr.contactTitle}</h2>
+            <p className="mt-1 text-sm text-slate-600">{tr.contactDescription}</p>
           </div>
-          <Link href="/contact" className="inline-flex shrink-0 items-center justify-center gap-2 text-sm font-bold text-[#B71932] hover:underline">Nous contacter <ArrowRight size={17} aria-hidden="true" /></Link>
+          <Link href="/contact" className="inline-flex shrink-0 items-center justify-center gap-2 text-sm font-bold text-[#B71932] hover:underline">{tr.contactLink} <ArrowRight size={17} aria-hidden="true" /></Link>
         </div>
 
         {/* ENGAGEMENTS CONSERVÉS */}
         <div className="mt-8 rounded-2xl bg-[#092D5A] p-6 text-white sm:p-9">
-          <h2 className="text-xl font-extrabold sm:text-2xl">Nos engagements professionnels</h2>
+          <h2 className="text-xl font-extrabold sm:text-2xl">{tr.commitmentsTitle}</h2>
           <div className="mt-6 grid gap-4 sm:grid-cols-3">
-            {["Qualité des prestations et satisfaction client", "Professionnalisme et amélioration continue", "Respect des règles d’hygiène et de sécurité"].map((engagement) => (
+            {tr.commitments.map((engagement) => (
               <div key={engagement} className="flex items-start gap-3">
                 <CheckCircle2 size={21} className="mt-0.5 shrink-0 text-[#FF9DA9]" aria-hidden="true" />
                 <span className="text-sm leading-6 text-white/90">{engagement}</span>

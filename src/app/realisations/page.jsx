@@ -4,6 +4,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useLanguage } from "@/context/LanguageContext";
 import {
   ArrowRight,
   ChevronLeft,
@@ -140,6 +141,14 @@ const heroSlides = [
 ];
 
 export default function RealisationsPage() {
+  const { t } = useLanguage();
+  const tr = t.realisations;
+  const translatedGallery = gallery.map((item) => ({
+    ...item,
+    title: tr.gallery[item.id],
+  }));
+  const categoryLabel = (category) => tr.categories[category] ?? category;
+
   const [activeCategory, setActiveCategory] = useState("Tous");
   const [showAll, setShowAll] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(null);
@@ -156,8 +165,8 @@ export default function RealisationsPage() {
     }, []);
   const filtered =
     activeCategory === "Tous"
-      ? gallery
-      : gallery.filter((item) => item.category === activeCategory);
+      ? translatedGallery
+      : translatedGallery.filter((item) => item.category === activeCategory);
 
   const visible = showAll ? filtered : filtered.slice(0, 6);
   const selected = selectedIndex === null ? null : filtered[selectedIndex];
@@ -246,16 +255,15 @@ export default function RealisationsPage() {
         <div className="max-w-2xl">
 
         <p className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-[#FFB4BC]">
-            Notre univers en images
+            {tr.heroEyebrow}
         </p>
 
         <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl">
-            Nos réalisations
+            {tr.heroTitle}
         </h1>
 
         <p className="mt-4 max-w-xl text-sm leading-6 text-white/90 sm:text-base">
-            Des projets concrets au service du développement.
-            Explorez les différents domaines d'intervention de JOSUNICO.
+            {tr.heroDescription}
         </p>
 
         </div>
@@ -269,7 +277,7 @@ export default function RealisationsPage() {
             key={slide.id}
             type="button"
             onClick={() => setActiveHeroSlide(index)}
-            aria-label={`Afficher l'image ${index + 1}`}
+            aria-label={`${tr.showImage} ${index + 1}`}
             aria-current={activeHeroSlide === index ? "true" : undefined}
             className={`h-1.5 rounded-full transition-all duration-500 ${
             activeHeroSlide === index
@@ -296,24 +304,22 @@ export default function RealisationsPage() {
               <span className="h-6 w-1.5 -skew-x-12 bg-[#B71932]" />
               <span className="h-6 w-1.5 -skew-x-12 bg-[#B71932]" />
               <span className="text-xs font-bold uppercase tracking-widest text-[#B71932]">
-                Galerie
+                {tr.galleryEyebrow}
               </span>
             </div>
 
             <h2 className="text-2xl font-extrabold text-[#092D5A] sm:text-3xl">
-              Découvrez notre univers
+              {tr.galleryTitle}
             </h2>
 
             <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-600">
-              Une sélection d'images illustrant nos secteurs d'activité.
-              Les photographies seront progressivement enrichies
-              avec les réalisations officielles de l'entreprise.
+              {tr.galleryDescription}
             </p>
           </div>
 
           <div className="flex items-center gap-2 text-sm font-semibold text-slate-500">
             <Images size={18} className="text-[#B71932]" />
-            {filtered.length} photographie{filtered.length > 1 ? "s" : ""}
+            {filtered.length} {filtered.length > 1 ? tr.photosPlural : tr.photoSingular}
           </div>
         </div>
 
@@ -331,7 +337,7 @@ export default function RealisationsPage() {
                   : "border-slate-200 bg-white text-[#092D5A] hover:border-[#B71932] hover:text-[#B71932]"
               }`}
             >
-              {category}
+              {categoryLabel(category)}
             </button>
           ))}
         </div>
@@ -347,7 +353,7 @@ export default function RealisationsPage() {
                 key={item.id}
                 type="button"
                 onClick={() => setSelectedIndex(index)}
-                aria-label={`Agrandir : ${item.title}`}
+                aria-label={`${tr.enlarge}: ${item.title}`}
                 className={`group relative isolate overflow-hidden rounded-xl bg-slate-200 text-left shadow-sm transition-shadow duration-300 hover:shadow-xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#B71932] sm:rounded-2xl ${
                   isLargeLayout
                     ? shapes[item.shape]
@@ -368,7 +374,7 @@ export default function RealisationsPage() {
                 {/* Informations */}
                 <div className="absolute inset-x-0 bottom-0 p-3 text-white sm:p-5">
                   <span className="mb-2 inline-block rounded-full bg-[#B71932] px-2.5 py-1 text-[10px] font-bold sm:text-xs">
-                    {item.category}
+                    {categoryLabel(item.category)}
                   </span>
 
                   <div className="flex items-end justify-between gap-2">
@@ -394,7 +400,7 @@ export default function RealisationsPage() {
               onClick={() => setShowAll(true)}
               className="inline-flex items-center gap-2 rounded-full border border-[#092D5A] bg-white px-7 py-3 text-sm font-bold text-[#092D5A] transition-colors hover:bg-[#092D5A] hover:text-white"
             >
-              Voir toutes les photos
+              {tr.showAll}
               <ArrowRight size={17} />
             </button>
           </div>
@@ -402,7 +408,7 @@ export default function RealisationsPage() {
 
         {/* INDICATION TEMPORAIRE */}
         <p className="mt-7 text-center text-xs text-slate-500">
-          Photographies d'illustration — galerie en cours d'enrichissement.
+          {tr.galleryNotice}
         </p>
       </section>
 
@@ -412,12 +418,11 @@ export default function RealisationsPage() {
         <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-6 md:flex-row md:items-center">
           <div>
             <h2 className="text-2xl font-extrabold sm:text-3xl">
-              Un projet à concrétiser ?
+              {tr.ctaTitle}
             </h2>
 
             <p className="mt-2 max-w-xl text-sm leading-6 text-white/80">
-              JOSUNICO vous accompagne dans vos besoins
-              en construction, équipements et services.
+              {tr.ctaDescription}
             </p>
           </div>
 
@@ -425,7 +430,7 @@ export default function RealisationsPage() {
             href="/contact"
             className="inline-flex items-center gap-2 rounded-full bg-[#B71932] px-7 py-3 text-sm font-bold text-white transition-colors hover:bg-[#99142A]"
           >
-            Contactez-nous
+            {tr.contactUs}
             <ArrowRight size={18} />
           </Link>
         </div>
@@ -437,7 +442,7 @@ export default function RealisationsPage() {
           className="fixed inset-0 z-[100] flex flex-col bg-black/95 text-white"
           role="dialog"
           aria-modal="true"
-          aria-label={`Photographie : ${selected.title}`}
+          aria-label={`${tr.photoSingular}: ${selected.title}`}
         >
           {/* BARRE SUPÉRIEURE */}
           <div className="flex items-center justify-between gap-4 px-4 py-4 sm:px-7">
@@ -453,7 +458,7 @@ export default function RealisationsPage() {
             <button
               type="button"
               onClick={() => setSelectedIndex(null)}
-              aria-label="Fermer la visionneuse"
+              aria-label={tr.closeViewer}
               className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white/10 transition-colors hover:bg-[#B71932]"
             >
               <X size={22} />
@@ -475,7 +480,7 @@ export default function RealisationsPage() {
             <button
               type="button"
               onClick={() => navigate(-1)}
-              aria-label="Photographie précédente"
+              aria-label={tr.previousPhoto}
               className="absolute left-2 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-black/50 transition-colors hover:bg-[#B71932] sm:left-6"
             >
               <ChevronLeft size={25} />
@@ -484,7 +489,7 @@ export default function RealisationsPage() {
             <button
               type="button"
               onClick={() => navigate(1)}
-              aria-label="Photographie suivante"
+              aria-label={tr.nextPhoto}
               className="absolute right-2 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-black/50 transition-colors hover:bg-[#B71932] sm:right-6"
             >
               <ChevronRight size={25} />
@@ -493,10 +498,9 @@ export default function RealisationsPage() {
 
           {/* BARRE INFÉRIEURE */}
           <div className="px-5 py-4 text-center">
-            <p className="text-sm font-semibold">{selected.category}</p>
+            <p className="text-sm font-semibold">{categoryLabel(selected.category)}</p>
             <p className="mt-1 text-xs text-white/50">
-              Utilisez les flèches du clavier pour naviguer.
-              Échap pour fermer.
+              {tr.keyboardHint}
             </p>
           </div>
         </div>

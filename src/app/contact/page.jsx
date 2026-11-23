@@ -1,7 +1,8 @@
 
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useLanguage } from "@/context/LanguageContext";
 import Image from "next/image";
 import {
   MapPin,
@@ -13,17 +14,11 @@ import {
   Building2,
 } from "lucide-react";
 
-const serviceNames = {
-  "aqua-life": "Production d’eau minérale Aqua-Life",
-  assainissement: "Aménagement et assainissement",
-  personnel: "Gestion du personnel",
-  "genie-civil": "Génie civil et BTP",
-  "forage-minier": "Forage minier",
-  "forage-eau": "Forage d’eau potable",
-  logistique: "Logistique et transport",
-  informatique: "Support informatique",
-  fournitures: "Fourniture de biens et services",
-};
+// Identifiants stables utilisés dans les liens depuis la page Services.
+const serviceIds = [
+  "aqua-life", "assainissement", "personnel", "genie-civil",
+  "forage-minier", "forage-eau", "logistique", "informatique", "fournitures",
+];
 
 const initialForm = {
   name: "",
@@ -33,21 +28,33 @@ const initialForm = {
 };
 
 export default function ContactPage() {
+  const { t, language } = useLanguage();
+  const tr = t.contactPage;
   const [form, setForm] = useState(initialForm);
   const [ready, setReady] = useState(false);
+  const autoFilled = useRef(null);
 
+  // Met à jour uniquement les champs préremplis automatiquement.
+  // Une saisie personnalisée du visiteur n'est jamais écrasée.
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const service = params.get("service");
+    if (!serviceIds.includes(service)) return;
 
-    if (service && serviceNames[service]) {
-      setForm((previous) => ({
-        ...previous,
-        subject: `Demande de devis — ${serviceNames[service]}`,
-        message: `Bonjour JOSUNICO,\n\nJe souhaite obtenir des informations ou un devis concernant votre service : ${serviceNames[service]}.\n\n`,
-      }));
-    }
-  }, []);
+    const serviceName = tr.serviceNames[service];
+    if (!serviceName) return;
+    const subject = `${tr.quoteSubject} — ${serviceName}`;
+    const message = `${tr.quoteGreeting}\n\n${tr.quoteMessage} ${serviceName}.\n\n`;
+
+    setForm((previous) => ({
+      ...previous,
+      subject: !previous.subject || previous.subject === autoFilled.current?.subject
+        ? subject : previous.subject,
+      message: !previous.message || previous.message === autoFilled.current?.message
+        ? message : previous.message,
+    }));
+    autoFilled.current = { subject, message };
+  }, [language, tr]);
 
   function updateField(event) {
     const { name, value } = event.target;
@@ -61,13 +68,13 @@ export default function ContactPage() {
   function handleSubmit(event) {
     event.preventDefault();
 
-    const subject = form.subject.trim() || "Demande de contact JOSUNICO";
+    const subject = form.subject.trim() || tr.defaultSubject;
 
     const body = [
-      `Nom complet : ${form.name.trim()}`,
-      `Email : ${form.email.trim()}`,
+      `${tr.emailFullName} : ${form.name.trim()}`,
+      `${tr.emailAddress} : ${form.email.trim()}`,
       "",
-      "Message :",
+      `${tr.emailMessage} :`,
       form.message.trim(),
     ].join("\n");
 
@@ -98,16 +105,15 @@ export default function ContactPage() {
         <div className="relative mx-auto flex min-h-[230px] max-w-7xl items-center px-5 py-12 sm:px-8 lg:min-h-[280px]">
           <div className="max-w-2xl">
             <p className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-[#FFB4BC]">
-              Parlons de votre projet
+              {tr.projectIntro}
             </p>
 
             <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl">
-              Contactez-nous
+              {tr.contactUs}
             </h1>
 
             <p className="mt-4 max-w-xl text-sm leading-6 text-white/90 sm:text-base">
-              Nous sommes à votre écoute pour toute demande de devis,
-              partenariat ou information.
+              {tr.heroDescription}
             </p>
           </div>
         </div>
@@ -119,14 +125,13 @@ export default function ContactPage() {
       <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
         <div className="mb-7">
           <span className="text-xs font-bold uppercase tracking-[0.15em] text-[#B71932]">
-            Restons en contact
+            {tr.stayInTouch}
           </span>
           <h2 className="mt-2 text-2xl font-extrabold text-[#092D5A] sm:text-3xl">
-            Comment pouvons-nous vous aider ?
+            {tr.howHelp}
           </h2>
           <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-600">
-            Retrouvez nos coordonnées ou envoyez-nous directement votre
-            demande.
+            {tr.contactDescription}
           </p>
         </div>
 
@@ -138,11 +143,11 @@ export default function ContactPage() {
   {/* Introduction */}
   <div className="mb-6">
     <h3 className="text-lg font-bold tracking-tight text-[#092D5A]">
-      Nos coordonnées
+      {tr.ourDetails}
     </h3>
 
     <p className="mt-2 text-sm leading-5 text-slate-500">
-      Retrouvez-nous ou contactez directement notre équipe.
+      {tr.reachTeam}
     </p>
   </div>
 
@@ -158,17 +163,17 @@ export default function ContactPage() {
 
       <div className="min-w-0">
         <h4 className="mb-1.5 text-sm font-semibold text-[#092D5A]">
-          Adresse
+          {tr.addressLabel}
         </h4>
 
         <p className="text-[13px] leading-[1.75] text-slate-500">
-          5, avenue Lumumba, quartier Lumumba
+          {tr.addressLine1}
           <br />
-          Entre les avenues Kimbangu et Mayenge
+          {tr.addressLine2}
           <br />
-          Réf. Polyclinique TFM
+          {tr.addressLine3}
           <br />
-          Lubumbashi, Haut-Katanga — RDC
+          {tr.addressLine4}
         </p>
       </div>
     </div>
@@ -186,7 +191,7 @@ export default function ContactPage() {
 
       <div>
         <h4 className="mb-1.5 text-sm font-semibold text-[#092D5A]">
-          Téléphones
+          {tr.phonesLabel}
         </h4>
 
         <div className="space-y-1 text-[13px]">
@@ -247,10 +252,10 @@ export default function ContactPage() {
 
     <div>
       <h3 className="text-base font-bold text-white sm:text-lg">
-        Parlons de votre projet
+        {tr.projectIntro}
       </h3>
       <p className="mt-0.5 text-xs text-slate-200">
-        Notre équipe est à votre écoute.
+        {tr.teamListening}
       </p>
     </div>
   </div>
@@ -268,7 +273,7 @@ export default function ContactPage() {
           htmlFor="contact-name"
           className="mb-1.5 block text-xs font-bold text-[#092D5A]"
         >
-          Nom complet <span className="text-[#A71930]">*</span>
+          {tr.fullName}<span className="text-[#A71930]">*</span>
         </label>
 
         <input
@@ -279,7 +284,7 @@ export default function ContactPage() {
           required
           value={form.name}
           onChange={updateField}
-          placeholder="Votre nom"
+          placeholder={tr.namePlaceholder}
           className="w-full min-w-0 rounded-lg border border-slate-200 bg-slate-50 px-3 py-2.5 text-sm text-slate-800 outline-none transition focus:border-[#A71930] focus:bg-white focus:ring-2 focus:ring-[#A71930]/10"
         />
       </div>
@@ -289,7 +294,7 @@ export default function ContactPage() {
           htmlFor="contact-email"
           className="mb-1.5 block text-xs font-bold text-[#092D5A]"
         >
-          Adresse email <span className="text-[#A71930]">*</span>
+          {tr.emailLabel}<span className="text-[#A71930]">*</span>
         </label>
 
         <input
@@ -300,7 +305,7 @@ export default function ContactPage() {
           required
           value={form.email}
           onChange={updateField}
-          placeholder="votre@email.com"
+          placeholder={tr.emailPlaceholder}
           className="w-full min-w-0 rounded-lg border border-slate-200 bg-slate-50 px-3 py-2.5 text-sm text-slate-800 outline-none transition focus:border-[#A71930] focus:bg-white focus:ring-2 focus:ring-[#A71930]/10"
         />
       </div>
@@ -313,7 +318,7 @@ export default function ContactPage() {
         htmlFor="contact-subject"
         className="mb-1.5 block text-xs font-bold text-[#092D5A]"
       >
-        Objet de votre demande
+        {tr.subjectLabel}
       </label>
 
       <input
@@ -322,7 +327,7 @@ export default function ContactPage() {
         type="text"
         value={form.subject}
         onChange={updateField}
-        placeholder="Ex. Demande de devis"
+        placeholder={tr.subjectPlaceholder}
         className="w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2.5 text-sm text-slate-800 outline-none transition focus:border-[#A71930] focus:bg-white focus:ring-2 focus:ring-[#A71930]/10"
       />
     </div>
@@ -333,7 +338,7 @@ export default function ContactPage() {
         htmlFor="contact-message"
         className="mb-1.5 block text-xs font-bold text-[#092D5A]"
       >
-        Votre message <span className="text-[#A71930]">*</span>
+        {tr.messageLabel}<span className="text-[#A71930]">*</span>
       </label>
 
       <textarea
@@ -343,7 +348,7 @@ export default function ContactPage() {
         required
         value={form.message}
         onChange={updateField}
-        placeholder="Décrivez brièvement votre projet ou votre besoin..."
+        placeholder={tr.messagePlaceholder}
         className="w-full resize-y rounded-lg border border-slate-200 bg-slate-50 px-3 py-2.5 text-sm leading-5 text-slate-800 outline-none transition focus:border-[#A71930] focus:bg-white focus:ring-2 focus:ring-[#A71930]/10"
       />
     </div>
@@ -354,7 +359,7 @@ export default function ContactPage() {
       className="flex w-full items-center justify-center gap-2 rounded-lg bg-[#A71930] px-5 py-3 text-sm font-bold text-white transition-all duration-200 hover:bg-[#8D1429] hover:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#A71930]"
     >
       <Send size={16} />
-      Préparer l'envoi
+      {tr.prepareSend}
     </button>
 
     {/* Confirmation */}
@@ -365,8 +370,7 @@ export default function ContactPage() {
       >
         <CheckCircle2 size={16} className="shrink-0" />
         <span>
-          Votre messagerie devrait s'ouvrir.
-          Vérifiez et confirmez l'envoi.
+          {tr.mailAppNotice}
         </span>
       </div>
     )}
@@ -374,8 +378,7 @@ export default function ContactPage() {
     {/* Note discrète */}
     <p className="flex items-start justify-center gap-1.5 text-center text-[11px] leading-4 text-slate-400">
       <span>
-        Aucun message n'est envoyé automatiquement.
-        Votre messagerie confirmera l'envoi.
+        {tr.mailDisclaimer}
       </span>
     </p>
 
@@ -394,7 +397,7 @@ export default function ContactPage() {
     <div className="flex items-center justify-between px-4 py-3">
       <div>
         <h3 className="text-sm font-bold text-[#092D5A]">
-          Notre localisation
+          {tr.ourLocation}
         </h3>
 
         <p className="mt-1 flex items-center gap-1 text-xs text-slate-500">
@@ -413,7 +416,7 @@ export default function ContactPage() {
 
       <div className="absolute inset-0 origin-center transition-transform duration-700 ease-out group-hover:scale-[1.035] motion-reduce:transform-none">
         <iframe
-          title="Localisation de JOSUNICO à Lubumbashi"
+          title={tr.mapTitle}
           src="https://www.google.com/maps?q=5%20Avenue%20Lumumba%20Lubumbashi%20RDC&output=embed"
           width="100%"
           height="100%"
@@ -445,12 +448,12 @@ export default function ContactPage() {
         rel="noopener noreferrer"
         className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#A71930] transition hover:gap-2.5 hover:text-[#891528]"
       >
-        Ouvrir dans Google Maps
+        {tr.openMaps}
         <ArrowUpRight size={14} />
       </a>
 
       <p className="mt-1 text-[10px] leading-4 text-slate-400">
-        Localisation indicative, adresse à confirmer.
+        {tr.locationDisclaimer}
       </p>
     </div>
   </div>
@@ -462,7 +465,7 @@ export default function ContactPage() {
     <div className="relative h-[95px] w-[110px] shrink-0 overflow-hidden rounded-lg bg-slate-100 sm:w-[115px]">
       <Image
         src="/images/hero/josunico-about-hero.webp"
-        alt="Illustration de JOSUNICO"
+        alt={tr.companyImageAlt}
         fill
         sizes="115px"
         className="object-cover transition-transform duration-700 ease-out group-hover:scale-105 motion-reduce:transform-none"
@@ -478,11 +481,11 @@ export default function ContactPage() {
       <div className="mt-1 h-0.5 w-7 rounded-full bg-[#A71930]" />
 
       <p className="mt-2 text-[11px] leading-[1.6] text-slate-500">
-        Bâtir, Accompagner et Innover.
+        {tr.slogan}
       </p>
 
       <p className="mt-1 text-[10px] text-slate-400">
-        Lubumbashi, RDC
+        {tr.cityCountry}
       </p>
     </div>
   </div>

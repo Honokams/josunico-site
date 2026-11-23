@@ -1,3 +1,7 @@
+"use client";
+
+
+import { useLanguage } from "@/context/LanguageContext";
 
 import MobileHeroCarousel from "../components/MobileHeroCarousel";
 import DesktopHeroCarousel from "../components/DesktopHeroCarousel";
@@ -124,6 +128,9 @@ const strengths = [
 ];
 
 export default function Home() {
+  const { t } = useLanguage();
+  const home = t.home;
+
   return (
     <main className="bg-[#F5F7FA] text-[#102D50]">
 
@@ -160,7 +167,7 @@ export default function Home() {
   className="relative m-0 w-fit leading-none"
 >
   <span className="sr-only">
-    JOSUNICO SARL — Entreprise multiservices
+    {home.heroAccessibleTitle}
   </span>
 
   <div
@@ -198,9 +205,9 @@ export default function Home() {
     lg:mt-6 lg:text-[42px]
   `}
 >
-  Bâtir, Accompagner
+  {home.sloganFirst}
   <br className="hidden sm:block" />
-  {" "}et Innover.
+  {" "}{home.sloganSecond}
 </h2>
 
 
@@ -215,9 +222,7 @@ export default function Home() {
                 lg:text-[16px]
               "
             >
-              Une entreprise congolaise multiservices,
-              engagée dans la construction, l’industrie
-              et les solutions qui accompagnent vos projets.
+              {home.heroDescription}
             </p>
 
             {/* Boutons */}
@@ -245,7 +250,7 @@ export default function Home() {
                   focus-visible:outline-white
                 "
               >
-                Explorer nos services
+                {home.exploreServices}
                 <ArrowRight size={17} />
               </Link>
 
@@ -266,7 +271,7 @@ export default function Home() {
                   focus-visible:outline-white
                 "
               >
-                Demander un devis
+                {home.requestQuote}
                 <ArrowUpRight size={17} />
               </Link>
             </div>
@@ -302,7 +307,7 @@ export default function Home() {
         >
           <div className="max-w-3xl">
             <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.18em] text-[#B71932]">
-              Nos domaines d'expertise
+              {home.expertiseEyebrow}
             </p>
 
             <h2
@@ -314,25 +319,23 @@ export default function Home() {
                 sm:text-3xl lg:text-[38px]
               `}
             >
-              Des compétences multiples.
+              {home.expertiseTitleFirst}
               <br />
               <span className="text-[#B71932]">
-                Un même engagement.
+                {home.expertiseTitleSecond}
               </span>
             </h2>
           </div>
 
           <p className="max-w-xs text-sm leading-6 text-slate-600">
-            Découvrez les neuf domaines d'intervention
-            de JOSUNICO et sélectionnez celui qui
-            correspond à votre besoin.
+            {home.expertiseDescription}
           </p>
         </div>
 
         {/* Grille des services */}
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
           {services.map(
-            ({ slug, title, subtitle, Icon, image }) => (
+            ({ slug, Icon, image }) => (
               <Link
                 key={slug}
                 href={`/services?service=${slug}`}
@@ -382,17 +385,17 @@ export default function Home() {
                     </div>
 
                     <p className="mb-1 text-[11px] font-medium text-slate-500">
-                      {subtitle}
+                      {home.serviceCards[slug].subtitle}
                     </p>
 
                     <h3 className="text-sm font-semibold leading-snug text-[#102D50] sm:text-[15px]">
-                      {title}
+                      {home.serviceCards[slug].title}
                     </h3>
                   </div>
 
                   <div className="mt-2 flex items-center justify-between">
                     <span className="text-[11px] font-semibold text-[#B71932]">
-                      En savoir plus
+                      {home.learnMore}
                     </span>
 
                     <ArrowUpRight
@@ -413,9 +416,7 @@ export default function Home() {
 
         {/* Note sur les photographies */}
         <p className="mt-4 text-xs leading-5 text-slate-500">
-          Photographies d'illustration provisoires :
-          elles ne représentent pas nécessairement
-          les équipements ou réalisations de JOSUNICO.
+          {home.photoDisclaimer}
         </p>
       </section>
 
@@ -432,7 +433,7 @@ export default function Home() {
           <div className="mb-5 flex flex-col justify-between gap-3 md:flex-row md:items-end">
             <div>
               <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.18em] text-[#B71932]">
-                Notre approche
+                {home.approachEyebrow}
               </p>
 
               <h2
@@ -443,20 +444,20 @@ export default function Home() {
                   text-[#102D50] sm:text-3xl
                 `}
               >
-                Pourquoi choisir JOSUNICO ?
+                {home.whyTitle}
               </h2>
             </div>
 
             <p className="max-w-sm text-sm leading-6 text-slate-600">
-              Quatre engagements essentiels pour accompagner vos projets.
+              {home.whyDescription}
             </p>
           </div>
 
           {/* Cartes compactes */}
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-            {strengths.map(({ Icon, title }) => (
+            {strengths.map(({ Icon }, index) => (
               <article
-                key={title}
+                key={index}
                 className="
                   group flex min-h-[76px]
                   items-center gap-3
@@ -479,7 +480,7 @@ export default function Home() {
                 </div>
 
                 <h3 className="text-sm font-semibold leading-snug text-[#102D50]">
-                  {title}
+                  {home.strengths[index]}
                 </h3>
               </article>
             ))}
@@ -495,7 +496,7 @@ export default function Home() {
                 transition hover:text-[#092D5A]
               "
             >
-              En savoir plus sur JOSUNICO
+              {home.moreAbout}
               <ArrowRight size={16} />
             </Link>
           </div>
