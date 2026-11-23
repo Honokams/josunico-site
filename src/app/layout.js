@@ -1,8 +1,11 @@
-import { Inter, Poppins } from "next/font/google";
+
 import "./globals.css";
+
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
+
+import { LanguageProvider } from "@/context/LanguageContext";
 
 export const metadata = {
   title: "JOSUNICO | Bâtir, Accompagner et Innover",
@@ -12,12 +15,19 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="fr">
+    <html lang="fr" suppressHydrationWarning>
       <body className="font-sans antialiased bg-gray-50 text-gray-900 flex flex-col min-h-screen">
-        <Header />
-        <div className="flex-grow">{children}</div>
-        <Footer />
-        <WhatsAppButton />
+        <LanguageProvider>
+          <Header />
+
+          <div className="flex-grow">
+            {children}
+          </div>
+
+          <Footer />
+
+          <WhatsAppButton />
+        </LanguageProvider>
       </body>
     </html>
   );
