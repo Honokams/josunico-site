@@ -18,6 +18,7 @@ const categories = [
   "Tous",
   "Génie civil & BTP",
   "Forage",
+  "Industrie",
   "Aménagement",
   "Logistique",
   "Autres",
@@ -49,8 +50,8 @@ const gallery = [
   {
     id: 4,
     title: "Production d'eau Aqua-Life",
-    category: "Autres",
-    image: "/images/services/aqua-life.webp",
+    category: "Industrie",
+    image: "/images/realisations/aqua-life.webp",
     shape: "normal",
   },
   {
@@ -87,6 +88,20 @@ const gallery = [
     category: "Autres",
     image: "/images/services/personnel.webp",
     shape: "wide",
+  },
+  {
+    id: 10,
+    title: "Production d'eau Aqua-Life",
+    category: "Industrie",
+    image: "/images/realisations/aqua-life-re2.webp",
+    shape: "tall",
+  },
+  {
+    id: 11,
+    title: "Production d'eau Aqua-Life",
+    category: "Industrie",
+    image: "/images/realisations/aqua-life-re3.webp",
+    shape: "tall",
   },
 ];
 

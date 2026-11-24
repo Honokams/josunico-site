@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import ServiceGallery from "./ServiceGallery";
 import PrestationsComplementaires from "./PrestationsComplementaires";
 import { useLanguage } from "@/context/LanguageContext";
 import {
@@ -188,7 +189,7 @@ const allServices = [
 ];
 
 export default function ServicesPage() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const tr = t.servicesPage;
   // IDs et catégories techniques restent stables dans les deux langues.
   const translatedServices = allServices.map((service) => {
@@ -392,6 +393,8 @@ export default function ServicesPage() {
               </div>
             </div>
           </div>
+
+          <ServiceGallery key={selectedService.id} service={selectedService} language={language} />
 
           {/* SPOT PUBLICITAIRE : UNIQUEMENT POUR AQUA-LIFE */}
           {selectedService.id === "aqua-life" && (
