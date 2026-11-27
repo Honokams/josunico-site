@@ -3,6 +3,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import "./josunico-motion.css";
 import Link from "next/link";
 
 import {
@@ -123,7 +124,7 @@ export default function MobileHeroCarousel() {
           {slides.map((item, index) => (
             <div
               key={`${item.slug}-${index}`}
-              className={`absolute inset-0 transition-opacity duration-700 ${
+              className={`absolute inset-0 transition-opacity duration-[1000ms] motion-reduce:transition-none ${
                 active === index
                   ? "opacity-100"
                   : "pointer-events-none opacity-0"
@@ -175,13 +176,13 @@ export default function MobileHeroCarousel() {
           </p>
 
           <h3
-            key={`${slide.slug}-${active}`}
+            key={`${slide.slug}-${active}`} data-jos-enter="enter"
             className="text-[22px] font-bold leading-tight tracking-tight text-white sm:text-2xl"
           >
             {slideText.title}
           </h3>
 
-          <p className="mt-2 max-w-[350px] text-[13px] leading-6 text-[#E7EDF6] sm:text-sm">
+          <p key={`subtitle-${active}`} data-jos-enter="enter" data-jos-delay="100" className="mt-2 max-w-[350px] text-[13px] leading-6 text-[#E7EDF6] sm:text-sm">
             {slideText.subtitle}
           </p>
 

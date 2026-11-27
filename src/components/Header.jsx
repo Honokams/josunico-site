@@ -1,24 +1,40 @@
-
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { Menu, X, ArrowUpRight, Globe } from "lucide-react";
-import { Manrope } from "next/font/google";
+import { Menu, X, ArrowUpRight, Globe, Phone, Mail, MapPin } from "lucide-react";
 
 import { useLanguage } from "@/context/LanguageContext";
 
-const manrope = Manrope({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
-  display: "swap",
-});
+const address = "N° 60, avenue Emmanuel, Golf Maisha, Lubumbashi, RDC";
+const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
 
 export default function Header() {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+useEffect(() => {
+  const handleScroll = () => {
+    const y = window.scrollY;
+
+    setIsScrolled((previous) =>
+      previous ? y > 40 : y > 150
+    );
+  };
+
+  handleScroll();
+
+  window.addEventListener("scroll", handleScroll, {
+    passive: true,
+  });
+
+  return () => {
+    window.removeEventListener("scroll", handleScroll);
+  };
+}, []);
 
   const { language, changeLanguage, t } = useLanguage();
 
@@ -37,9 +53,56 @@ export default function Header() {
 
   return (
     <header
-      className={`${manrope.className} sticky top-0 z-50 bg-white border-b border-gray-100 shadow-sm`}
-    >
-      <div className="max-w-7xl mx-auto px-5 lg:px-8 h-[88px] flex items-center justify-between gap-6">
+        className={`
+          josunico-header sticky top-0 z-50
+          bg-white border-b border-gray-100
+          transition-shadow duration-500
+          motion-reduce:transition-none
+          ${isScrolled ? "shadow-lg" : "shadow-sm"}
+        `}
+      >
+      {/* COORDONNÉES OFFICIELLES */}
+      <div
+          inert={isScrolled}
+          className={`
+            bg-[#061B36] text-white font-sans text-xs sm:text-sm
+            overflow-hidden
+            transition-all duration-500 ease-in-out
+            motion-reduce:transition-none
+            ${
+              isScrolled
+                ? "max-h-0 opacity-0"
+                : "max-h-[160px] opacity-100"
+            }
+          `}
+        >
+        <div className="max-w-7xl mx-auto px-4 lg:px-8 py-2 flex flex-wrap items-center justify-center lg:justify-between gap-x-5 gap-y-2">
+          <a href="tel:+243970854444" className="flex items-center gap-2 hover:text-red-300 transition-colors">
+            <Phone size={15} aria-hidden="true" /> +243 97 085 44 44
+          </a>
+          <a href="mailto:josunicosarl@gmail.com" className="flex items-center gap-2 hover:text-red-300 transition-colors">
+            <Mail size={15} aria-hidden="true" /> josunicosarl@gmail.com
+          </a>
+          <a href={mapUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-red-300 transition-colors">
+            <MapPin size={16} className="shrink-0" aria-hidden="true" />
+            <span>{language === "fr" ? address : "60 Emmanuel Avenue, Golf Maisha, Lubumbashi, DRC"}</span>
+          </a>
+        </div>
+      </div>
+      <div
+          className={`
+            font-heading max-w-7xl mx-auto
+            px-4 lg:px-8 flex items-center
+            justify-between gap-2 lg:gap-6
+            transition-all duration-500 ease-in-out
+            motion-reduce:transition-none
+            ${
+                isScrolled
+                  ? "h-[60px] lg:h-[64px] josunico-header-reveal"
+                  : "h-[76px] lg:h-[88px]"
+              }
+          `}
+        >
 
         {/* LOGO OFFICIEL */}
         <Link
@@ -54,7 +117,17 @@ export default function Header() {
             width={220}
             height={80}
             priority
-            className="h-[60px] w-auto max-w-[200px] object-contain mix-blend-multiply"
+            className={`
+            w-auto max-w-[145px] sm:max-w-[200px]
+            object-contain mix-blend-multiply
+            transition-all duration-500 ease-in-out
+            motion-reduce:transition-none
+            ${
+              isScrolled
+                ? "h-[42px] lg:h-[45px]"
+                : "h-[60px]"
+            }
+          `}
           />
         </Link>
 
@@ -75,16 +148,14 @@ export default function Header() {
                   aria-current={active ? "page" : undefined}
                   className={`
                     relative flex items-center gap-2
-                    px-4 py-2.5 rounded-lg
+                    px-3 py-2.5 rounded-md
                     text-[13px] font-semibold
                     tracking-[0.01em]
                     transition-all duration-300
                     ${
-                      active
-                        ? "bg-[#A71930] text-white shadow-sm"
-                        : contact
-                        ? "bg-[#092D5A] text-white hover:bg-[#A71930]"
-                        : "text-[#24354B] hover:text-[#A71930] hover:bg-red-50"
+                      contact
+                        ? active ? "bg-[#A71930] text-white" : "bg-[#092D5A] text-white hover:bg-[#A71930]"
+                        : active ? "josunico-nav-link text-[#A71930]" : "josunico-nav-link text-[#24354B] hover:text-[#A71930]"
                     }
                   `}
                 >
@@ -182,7 +253,7 @@ export default function Header() {
               ? "Navigation mobile"
               : "Mobile navigation"
           }
-          className="absolute top-full left-0 right-0 bg-white border-t border-gray-100 shadow-xl lg:hidden"
+          className="josunico-mobile-menu font-heading absolute top-full left-0 right-0 bg-white border-t border-gray-100 shadow-xl lg:hidden max-h-[65dvh] overflow-y-auto"
         >
           <div className="flex flex-col gap-2 p-5">
             {navigation.map((item) => {

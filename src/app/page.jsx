@@ -1,5 +1,7 @@
 "use client";
 
+import useJosunicoMotion from "@/components/useJosunicoMotion";
+
 
 import { useLanguage } from "@/context/LanguageContext";
 
@@ -8,7 +10,6 @@ import DesktopHeroCarousel from "../components/DesktopHeroCarousel";
 
 import Link from "next/link";
 import Image from "next/image";
-import { Space_Grotesk } from "next/font/google";
 
 import {
   Droplet,
@@ -26,13 +27,6 @@ import {
   Award,
   Target,
 } from "lucide-react";
-
-// Police distinctive pour les grands titres
-const spaceGrotesk = Space_Grotesk({
-  subsets: ["latin"],
-  weight: ["500", "600", "700"],
-  display: "swap",
-});
 
 // ========================================
 // LES 9 SERVICES DE JOSUNICO
@@ -128,11 +122,12 @@ const strengths = [
 ];
 
 export default function Home() {
+  const motionRef = useJosunicoMotion();
   const { t } = useLanguage();
   const home = t.home;
 
   return (
-    <main className="bg-[#F5F7FA] text-[#102D50]">
+    <main ref={motionRef} className="bg-[#F5F7FA] text-[#102D50]">
 
       {/* ========================================
           1. HERO
@@ -162,7 +157,7 @@ export default function Home() {
 
             
 {/* LOGO OFFICIEL JOSUNICO */}
-<h1
+<h1 data-jos-enter="enter"
   id="hero-title"
   className="relative m-0 w-fit leading-none"
 >
@@ -193,9 +188,9 @@ export default function Home() {
 </h1>
 
 {/* SLOGAN */}
-<h2
+<h2 data-jos-enter="enter" data-jos-delay="100"
   className={`
-    ${spaceGrotesk.className}
+    font-heading
     mt-5 max-w-[610px]
     text-[clamp(1.65rem,5.5vw,2.5rem)]
     font-semibold leading-[1.18]
@@ -212,7 +207,7 @@ export default function Home() {
 
 
             {/* Description */}
-            <p
+            <p data-jos-enter="enter" data-jos-delay="200"
               className="
                 mt-4 max-w-[500px]
                 text-sm font-medium
@@ -226,7 +221,7 @@ export default function Home() {
             </p>
 
             {/* Boutons */}
-            <div
+            <div data-jos-enter="enter" data-jos-delay="300"
               className="
                 mt-6 flex flex-col gap-3
                 sm:flex-row sm:flex-wrap
@@ -305,7 +300,7 @@ export default function Home() {
             md:flex-row md:items-end
           "
         >
-          <div className="max-w-3xl">
+          <div data-jos-reveal="up" className="max-w-3xl">
             <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.18em] text-[#B71932]">
               {home.expertiseEyebrow}
             </p>
@@ -313,7 +308,7 @@ export default function Home() {
             <h2
               id="services-title"
               className={`
-                ${spaceGrotesk.className}
+                font-heading
                 text-2xl font-bold leading-tight
                 tracking-tight
                 sm:text-3xl lg:text-[38px]
@@ -327,7 +322,7 @@ export default function Home() {
             </h2>
           </div>
 
-          <p className="max-w-xs text-sm leading-6 text-slate-600">
+          <p data-jos-reveal="up" data-jos-delay="100" className="max-w-xs text-sm leading-6 text-slate-600">
             {home.expertiseDescription}
           </p>
         </div>
@@ -336,7 +331,7 @@ export default function Home() {
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
           {services.map(
             ({ slug, Icon, image }) => (
-              <Link
+              <Link data-jos-reveal="up"
                 key={slug}
                 href={`/services?service=${slug}`}
                 className="
@@ -430,7 +425,7 @@ export default function Home() {
       >
         <div className="mx-auto max-w-7xl">
 
-          <div className="mb-5 flex flex-col justify-between gap-3 md:flex-row md:items-end">
+          <div data-jos-reveal="up" className="mb-5 flex flex-col justify-between gap-3 md:flex-row md:items-end">
             <div>
               <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.18em] text-[#B71932]">
                 {home.approachEyebrow}
@@ -439,7 +434,7 @@ export default function Home() {
               <h2
                 id="why-title"
                 className={`
-                  ${spaceGrotesk.className}
+                  font-heading
                   text-2xl font-bold tracking-tight
                   text-[#102D50] sm:text-3xl
                 `}
@@ -456,7 +451,7 @@ export default function Home() {
           {/* Cartes compactes */}
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
             {strengths.map(({ Icon }, index) => (
-              <article
+              <article data-jos-reveal="up"
                 key={index}
                 className="
                   group flex min-h-[76px]
@@ -487,7 +482,7 @@ export default function Home() {
           </div>
 
           {/* Lien vers la page À propos */}
-          <div className="mt-5">
+          <div data-jos-reveal="up" className="mt-5">
             <Link
               href="/a-propos"
               className="

@@ -8,19 +8,192 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-nunito-sans), Arial, sans-serif;
+  --font-heading: var(--font-montserrat), Arial, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  body { background: var(--background); color: var(--foreground); font-family: var(--font-nunito-sans), Arial, sans-serif; }
+  h1, h2, h3, h4, h5, h6, button { font-family: var(--font-montserrat), Arial, sans-serif; }
+}
+
+.josunico-nav-link::after {
+  content: "";
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 3px;
+  height: 2px;
+  background: #A71930;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 280ms ease;
+}
+.josunico-nav-link:hover::after,
+.josunico-nav-link:focus-visible::after,
+.josunico-nav-link[aria-current="page"]::after { transform: scaleX(1); }
+
+.josunico-mobile-menu { animation: josunico-menu-enter 220ms ease-out both; }
+@keyframes josunico-menu-enter {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .josunico-header *, .josunico-header *::after { animation: none !important; transition: none !important; }
+}
+/* =========================================
+   ANIMATION DU MENU COMPACT
+========================================= */
+
+@keyframes josunicoHeaderReveal {
+  from {
+    opacity: 0;
+    transform: translateY(-39px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.josunico-header-reveal {
+  animation: josunicoHeaderReveal
+    1050ms cubic-bezier(0.22, 1, 0.36, 1)
+    both;
+}
+
+/* Accessibilité */
+@media (prefers-reduced-motion: reduce) {
+  .josunico-header-reveal {
+    animation: none;
+  }
+}
+/* IDENTITE VISUELLE — composants opt-in */
+:root {
+  --josunico-night: #061B36;
+  --josunico-blue: #092D5A;
+  --josunico-red: #A71930;
+  --josunico-red-hover: #D32945;
+  --josunico-light: #F4F6F9;
+  --josunico-text: #475569;
+  --josunico-ease: cubic-bezier(.22, 1, .36, 1);
+}
+@layer components {
+  .josunico-section { padding-block: clamp(3rem, 7vw, 6rem); }
+  .josunico-container { width: 100%; max-width: 80rem; margin-inline: auto; padding-inline: clamp(1rem, 3vw, 2rem); }
+  .josunico-eyebrow { display: inline-flex; align-items: center; gap: .75rem; color: var(--josunico-red); font-family: var(--font-montserrat), Arial, sans-serif; font-size: .75rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+  .josunico-eyebrow::before { content: ''; width: 1.75rem; height: 3px; background: currentColor; }
+  .josunico-section-title { color: var(--josunico-blue); font-size: clamp(1.75rem, 3.5vw, 2.75rem); font-weight: 800; line-height: 1.2; margin-block: .75rem 1rem; }
+  .josunico-description { color: var(--josunico-text); font-size: clamp(1rem, 1.3vw, 1.125rem); line-height: 1.75; }
+  .josunico-section-light { background: var(--josunico-light); }
+  .josunico-section-dark { background: linear-gradient(120deg, var(--josunico-night), var(--josunico-blue)); color: white; }
+  .josunico-section-dark .josunico-section-title { color: white; }
+  .josunico-section-dark .josunico-description { color: #e2e8f0; }
+  .josunico-section-dark .josunico-eyebrow { color: #ffb4c0; }
+  .josunico-btn-primary, .josunico-btn-secondary { display: inline-flex; align-items: center; justify-content: center; gap: .5rem; padding: .85rem 1.4rem; border: 1px solid var(--josunico-blue); border-radius: .375rem; font-family: var(--font-montserrat), Arial, sans-serif; font-weight: 600; font-size: .875rem; cursor: pointer; transition: background-color .35s, color .35s, border-color .35s, transform .35s var(--josunico-ease), box-shadow .35s; }
+  .josunico-btn-primary { background: var(--josunico-blue); color: white; }
+  .josunico-btn-secondary { background: transparent; color: var(--josunico-blue); }
+  .josunico-btn-primary:hover, .josunico-btn-secondary:hover { background: var(--josunico-red); border-color: var(--josunico-red); color: white; transform: translateY(-3px); box-shadow: 0 8px 20px #a7193026; }
+  .josunico-btn-primary:focus-visible, .josunico-btn-secondary:focus-visible { outline: 3px solid #64748b; outline-offset: 4px; }
+  .josunico-card { position: relative; background: white; border: 1px solid #e2e8f0; border-radius: .5rem; box-shadow: 0 3px 12px #092d5a0d; transition: transform .45s var(--josunico-ease), box-shadow .45s, border-color .45s; }
+  .josunico-card:hover, .josunico-card:focus-within { transform: translateY(-5px); box-shadow: 0 12px 28px #092d5a20; border-bottom-color: var(--josunico-red); }
+  .josunico-image-wrap { overflow: hidden; position: relative; }
+  .josunico-image-wrap img { transition: transform .9s var(--josunico-ease), filter .6s; }
+  .josunico-image-wrap:hover img, .josunico-card:hover .josunico-image-wrap img { transform: scale(1.08); }
+}
+/* Apparitions au montage : appliquer aux éléments choisis uniquement. */
+@keyframes josunico-fade-up { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes josunico-fade-left { from { opacity: 0; transform: translateX(-24px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes josunico-fade-right { from { opacity: 0; transform: translateX(24px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes josunico-fade { from { opacity: 0; } to { opacity: 1; } }
+.josunico-fade-up, .josunico-fade-left, .josunico-fade-right, .josunico-fade { animation-duration: 800ms; animation-timing-function: var(--josunico-ease); animation-fill-mode: both; animation-delay: var(--josunico-delay, 0ms); }
+.josunico-fade-up { animation-name: josunico-fade-up; }
+.josunico-fade-left { animation-name: josunico-fade-left; }
+.josunico-fade-right { animation-name: josunico-fade-right; }
+.josunico-fade { animation-name: josunico-fade; }
+.josunico-delay-1 { --josunico-delay: 120ms; }
+.josunico-delay-2 { --josunico-delay: 240ms; }
+.josunico-delay-3 { --josunico-delay: 360ms; }
+@media (prefers-reduced-motion: reduce) {
+  .josunico-fade-up, .josunico-fade-left, .josunico-fade-right, .josunico-fade { animation: none !important; }
+  .josunico-card, .josunico-image-wrap img, .josunico-btn-primary, .josunico-btn-secondary { transition: none !important; transform: none !important; }
+}
+
+/* =========================================
+   ANIMATIONS AU DÉFILEMENT - JOSUNICO
+========================================= */
+
+.josunico-reveal {
+  --reveal-delay: 0ms;
+  --reveal-duration: 900ms;
+  --reveal-distance: 35px;
+}
+
+.josunico-reveal-ready {
+  opacity: 0;
+
+  transition:
+    opacity var(--reveal-duration)
+      cubic-bezier(0.22, 1, 0.36, 1),
+    transform var(--reveal-duration)
+      cubic-bezier(0.22, 1, 0.36, 1);
+
+  transition-delay: var(--reveal-delay);
+}
+
+/* Apparition depuis le bas */
+.josunico-reveal-ready[data-direction="up"] {
+  transform: translateY(var(--reveal-distance));
+}
+
+/* Apparition depuis le haut */
+.josunico-reveal-ready[data-direction="down"] {
+  transform: translateY(
+    calc(-1 * var(--reveal-distance))
+  );
+}
+
+/* Apparition depuis la gauche */
+.josunico-reveal-ready[data-direction="left"] {
+  transform: translateX(
+    calc(-1 * var(--reveal-distance))
+  );
+}
+
+/* Apparition depuis la droite */
+.josunico-reveal-ready[data-direction="right"] {
+  transform: translateX(var(--reveal-distance));
+}
+
+/* Apparition avec agrandissement */
+.josunico-reveal-ready[data-direction="zoom"] {
+  transform: scale(0.94);
+}
+
+/* Élément devenu visible */
+.josunico-reveal-ready.josunico-reveal-visible,
+.josunico-reveal-ready:focus-within {
+  opacity: 1;
+  transform: none;
+}
+
+/* Accessibilité */
+@media (prefers-reduced-motion: reduce) {
+  .josunico-reveal-ready {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+/* IDENTITE TYPOGRAPHIQUE — prioritaire sur les utilitaires de police */
+body { font-family: var(--font-nunito-sans), Arial, sans-serif; }
+h1, h2, h3, h4, h5, h6, button, [role="button"],
+.josunico-header nav, .font-heading,
+a[class*="inline-flex"][class*="font-bold"],
+a[class*="inline-flex"][class*="font-semibold"] {
+  font-family: var(--font-montserrat), Arial, sans-serif;
+}
+input, textarea, select {
+  font-family: var(--font-nunito-sans), Arial, sans-serif;
 }

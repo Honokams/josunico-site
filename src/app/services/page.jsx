@@ -1,5 +1,7 @@
 "use client";
 
+import useJosunicoMotion from "@/components/useJosunicoMotion";
+
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -189,6 +191,7 @@ const allServices = [
 ];
 
 export default function ServicesPage() {
+  const motionRef = useJosunicoMotion();
   const { t, language } = useLanguage();
   const tr = t.servicesPage;
   // IDs et catégories techniques restent stables dans les deux langues.
@@ -226,7 +229,7 @@ export default function ServicesPage() {
   }
 
   return (
-    <main className="bg-[#F5F7FA]">
+    <main ref={motionRef} className="bg-[#F5F7FA]">
       {/* HERO CONSERVÉ */}
       <section className="relative isolate overflow-hidden bg-[#092D5A] text-white">
         <div className="absolute inset-0">
@@ -235,22 +238,22 @@ export default function ServicesPage() {
         </div>
         <div className="relative mx-auto flex min-h-[230px] max-w-7xl items-center px-5 py-12 sm:px-8 lg:min-h-[280px]">
           <div className="max-w-2xl">
-            <p className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-[#FFB4BC]">{tr.heroEyebrow}</p>
-            <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl">{tr.heroTitle}</h1>
-            <p className="mt-4 max-w-xl text-sm leading-6 text-white/90 sm:text-base">{tr.heroDescription}</p>
+            <p data-jos-enter="enter" className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-[#FFB4BC]">{tr.heroEyebrow}</p>
+            <h1 data-jos-enter="enter" data-jos-delay="100" className="text-4xl font-extrabold tracking-tight sm:text-5xl">{tr.heroTitle}</h1>
+            <p data-jos-enter="enter" data-jos-delay="200" className="mt-4 max-w-xl text-sm leading-6 text-white/90 sm:text-base">{tr.heroDescription}</p>
           </div>
         </div>
         
       </section>
 
       <section className="mx-auto max-w-7xl px-4 py-9 sm:px-6 lg:px-8">
-        <div className="mb-6">
+        <div data-jos-reveal="up" className="mb-6">
           <h2 className="text-2xl font-extrabold text-[#092D5A] sm:text-3xl">{tr.expertiseTitle}</h2>
           <p className="mt-2 text-sm text-slate-600">{tr.expertiseDescription}</p>
         </div>
 
         {/* UN SEUL FILTRE POUR TOUS LES SERVICES */}
-        <div className="mb-5 flex flex-wrap items-center gap-2" aria-label={tr.filterLabel}>
+        <div data-jos-reveal="up" className="mb-5 flex flex-wrap items-center gap-2" aria-label={tr.filterLabel}>
           <Filter size={18} className="mr-1 text-[#092D5A]" aria-hidden="true" />
           {categories.map((category) => (
             <button key={category} type="button" onClick={() => changeCategory(category)}
@@ -273,7 +276,7 @@ export default function ServicesPage() {
             const Icon = service.icon;
             const isSelected = detailOpen && selectedId === service.id;
             return (
-              <button key={service.id} type="button" onClick={() => selectService(service.id)}
+              <button data-jos-reveal="up" key={service.id} type="button" onClick={() => selectService(service.id)}
                 aria-pressed={isSelected} aria-controls="service-detail"
                 className={`group flex min-h-[112px] items-center gap-3 rounded-xl border bg-white p-2 text-left shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#B71932] ${isSelected ? "border-[#B71932] ring-1 ring-[#B71932]" : "border-slate-200 hover:border-[#B71932]/50"}`}>
                 <div className="relative h-[92px] w-[105px] shrink-0 overflow-hidden rounded-lg bg-slate-100 sm:w-[100px]">
@@ -317,7 +320,7 @@ export default function ServicesPage() {
           aria-live="polite"
         >
           <div className="grid lg:grid-cols-[0.95fr_1.3fr]">
-            <div className="relative min-h-[250px] bg-slate-100 sm:min-h-[320px] lg:min-h-[360px]">
+            <div data-jos-reveal="up" className="relative min-h-[250px] bg-slate-100 sm:min-h-[320px] lg:min-h-[360px]">
               {(selectedService.detailImage ?? selectedService.image).startsWith("/") ? (
                 <Image
                   key={selectedService.id}
@@ -338,7 +341,7 @@ export default function ServicesPage() {
               )}
             </div>
 
-            <div className="flex flex-col justify-center p-6 sm:p-9">
+            <div data-jos-reveal="up" data-jos-delay="100" className="flex flex-col justify-center p-6 sm:p-9">
               <div className="mb-4 flex items-center gap-3">
                 <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#B71932]/10 text-[#B71932]">
                   <SelectedIcon size={25} aria-hidden="true" />
@@ -434,7 +437,7 @@ export default function ServicesPage() {
         )}
 
         {/* RAPPEL DE CONTACT */}
-        <div className="mt-8 flex flex-col gap-4 rounded-xl border border-[#092D5A]/10 bg-white px-6 py-5 sm:flex-row sm:items-center sm:justify-between">
+        <div data-jos-reveal="up" className="mt-8 flex flex-col gap-4 rounded-xl border border-[#092D5A]/10 bg-white px-6 py-5 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <h2 className="text-lg font-extrabold text-[#092D5A]">{tr.contactTitle}</h2>
             <p className="mt-1 text-sm text-slate-600">{tr.contactDescription}</p>
@@ -443,7 +446,7 @@ export default function ServicesPage() {
         </div>
 
         {/* ENGAGEMENTS CONSERVÉS */}
-        <div className="mt-8 rounded-2xl bg-[#092D5A] p-6 text-white sm:p-9">
+        <div data-jos-reveal="up" className="mt-8 rounded-2xl bg-[#092D5A] p-6 text-white sm:p-9">
           <h2 className="text-xl font-extrabold sm:text-2xl">{tr.commitmentsTitle}</h2>
           <div className="mt-6 grid gap-4 sm:grid-cols-3">
             {tr.commitments.map((engagement) => (

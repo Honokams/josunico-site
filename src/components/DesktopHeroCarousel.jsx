@@ -74,7 +74,7 @@ export default function DesktopHeroCarousel() {
           aria-hidden="true"
           className={`
             absolute inset-0
-            transition-opacity duration-[1400ms] ease-in-out
+            transition-opacity duration-[1800ms] ease-in-out motion-reduce:transition-none
             ${
               active === index
                 ? "opacity-100"

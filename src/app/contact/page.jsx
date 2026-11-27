@@ -1,6 +1,8 @@
 
 "use client";
 
+import useJosunicoMotion from "@/components/useJosunicoMotion";
+
 import { useEffect, useRef, useState } from "react";
 import { useLanguage } from "@/context/LanguageContext";
 import Image from "next/image";
@@ -28,6 +30,7 @@ const initialForm = {
 };
 
 export default function ContactPage() {
+  const motionRef = useJosunicoMotion();
   const { t, language } = useLanguage();
   const tr = t.contactPage;
   const [form, setForm] = useState(initialForm);
@@ -87,7 +90,7 @@ export default function ContactPage() {
   }
 
   return (
-    <main className="bg-[#F5F7FA]">
+    <main ref={motionRef} className="bg-[#F5F7FA]">
       {/* HERO */}
       <section className="relative isolate overflow-hidden bg-[#092D5A] text-white">
         <div className="absolute inset-0">
@@ -104,15 +107,15 @@ export default function ContactPage() {
 
         <div className="relative mx-auto flex min-h-[230px] max-w-7xl items-center px-5 py-12 sm:px-8 lg:min-h-[280px]">
           <div className="max-w-2xl">
-            <p className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-[#FFB4BC]">
+            <p data-jos-enter="enter" className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-[#FFB4BC]">
               {tr.projectIntro}
             </p>
 
-            <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl">
+            <h1 data-jos-enter="enter" data-jos-delay="100" className="text-4xl font-extrabold tracking-tight sm:text-5xl">
               {tr.contactUs}
             </h1>
 
-            <p className="mt-4 max-w-xl text-sm leading-6 text-white/90 sm:text-base">
+            <p data-jos-enter="enter" data-jos-delay="200" className="mt-4 max-w-xl text-sm leading-6 text-white/90 sm:text-base">
               {tr.heroDescription}
             </p>
           </div>
@@ -123,7 +126,7 @@ export default function ContactPage() {
 
       {/* CONTENU PRINCIPAL */}
       <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
-        <div className="mb-7">
+        <div data-jos-reveal="up" className="mb-7">
           <span className="text-xs font-bold uppercase tracking-[0.15em] text-[#B71932]">
             {tr.stayInTouch}
           </span>
@@ -138,7 +141,7 @@ export default function ContactPage() {
         <div className="grid items-start gap-5 lg:grid-cols-[0.9fr_1.25fr_0.95fr]">
           
 {/* COLONNE 1 : COORDONNÉES MINIMALISTES */}
-<div className="px-1 py-3 sm:px-2 sm:py-4">
+<div data-jos-reveal="up" className="px-1 py-3 sm:px-2 sm:py-4">
 
   {/* Introduction */}
   <div className="mb-6">
@@ -242,7 +245,7 @@ export default function ContactPage() {
 
           
 {/* COLONNE 2 : FORMULAIRE COMPACT PREMIUM */}
-<div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-[0_8px_30px_rgba(9,45,90,0.07)]">
+<div data-jos-reveal="up" data-jos-delay="100" className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-[0_8px_30px_rgba(9,45,90,0.07)]">
 
   {/* En-tête */}
   <div className="flex items-center gap-3 bg-[#092D5A] px-5 py-4">
@@ -388,7 +391,7 @@ export default function ContactPage() {
 
           
 {/* COLONNE 3 : LOCALISATION COMPACTE */}
-<div className="flex h-full min-w-0 flex-col gap-3">
+<div data-jos-reveal="up" data-jos-delay="200" className="flex h-full min-w-0 flex-col gap-3">
 
   {/* CARTE GOOGLE MAPS */}
   <div className="group overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-[0_4px_20px_rgba(9,45,90,0.04)]">

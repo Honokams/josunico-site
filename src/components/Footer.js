@@ -1,18 +1,21 @@
 
 "use client";
 
+import useJosunicoMotion from "@/components/useJosunicoMotion";
+
 import Link from "next/link";
 import { useLanguage } from "@/context/LanguageContext";
 
 export default function Footer() {
+  const motionRef = useJosunicoMotion();
   const { t } = useLanguage();
 
   return (
-    <footer className="bg-[#092D5A] text-white py-12 px-6">
+    <footer ref={motionRef} className="bg-[#092D5A] text-white py-12 px-6">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
 
         {/* Infos entreprise */}
-        <div>
+        <div data-jos-reveal="up">
           <h3 className="text-xl font-bold mb-4 text-[#0878C9]">
             JOSUNICO SARL
           </h3>
@@ -23,7 +26,7 @@ export default function Footer() {
         </div>
 
         {/* Coordonnées officielles */}
-        <div>
+        <div data-jos-reveal="up" data-jos-delay="100">
           <h4 className="text-lg font-semibold mb-4 text-white">
             {t.footer.coordinates}
           </h4>
@@ -42,7 +45,7 @@ export default function Footer() {
         </div>
 
         {/* Liens rapides */}
-        <div>
+        <div data-jos-reveal="up" data-jos-delay="200">
           <h4 className="text-lg font-semibold mb-4 text-white">
             {t.footer.navigation}
           </h4>

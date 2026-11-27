@@ -1,5 +1,7 @@
 "use client";
 
+import useJosunicoMotion from "@/components/useJosunicoMotion";
+
 import { useLanguage } from "@/context/LanguageContext";
 
 import Link from "next/link";
@@ -15,10 +17,11 @@ import {
 } from "lucide-react";
 
 export default function AboutContent() {
+  const motionRef = useJosunicoMotion();
   const { t } = useLanguage();
   const about = t.about;
   return (
-    <main className="bg-[#F5F7FA] text-[#102D50]">
+    <main ref={motionRef} className="bg-[#F5F7FA] text-[#102D50]">
 
         {/* ======================================
             1. HERO — MOBILE ET ORDINATEUR
@@ -43,11 +46,11 @@ export default function AboutContent() {
             {/* TEXTES POSITIONNÉS DANS LA ZONE BLEUE */}
             <div className="relative z-10 mx-auto max-w-lg px-6 pt-12 sm:px-9 sm:pt-16">
 
-            <p className="mb-4 text-[11px] font-bold uppercase tracking-[0.18em] text-white/90">
+            <p data-jos-enter="enter" className="mb-4 text-[11px] font-bold uppercase tracking-[0.18em] text-white/90">
                 {about.discoverCompany}
             </p>
 
-            <h1
+            <h1 data-jos-enter="enter" data-jos-delay="100"
                 id="about-hero-title"
                 className="max-w-[350px] text-[clamp(2rem,8vw,3rem)] font-extrabold leading-[1.12] tracking-tight drop-shadow-[0_3px_8px_rgba(0,0,0,0.45)]"
             >
@@ -59,7 +62,7 @@ export default function AboutContent() {
 
             <div className="mt-4 h-1 w-12 rounded-full bg-[#B71932]" />
 
-            <p className="mt-5 max-w-[310px] text-[14px] font-medium leading-6 text-white drop-shadow-[0_2px_6px_rgba(0,0,0,0.6)] sm:text-base">
+            <p data-jos-enter="enter" data-jos-delay="200" className="mt-5 max-w-[310px] text-[14px] font-medium leading-6 text-white drop-shadow-[0_2px_6px_rgba(0,0,0,0.6)] sm:text-base">
                 {about.heroDescription}
             </p>
 
@@ -80,15 +83,15 @@ export default function AboutContent() {
 
             <div className="relative z-10 mx-auto w-full max-w-7xl px-8 py-14">
 
-            <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.18em] text-[#FF9AA3]">
+            <p data-jos-enter="enter" className="mb-3 text-[11px] font-bold uppercase tracking-[0.18em] text-[#FF9AA3]">
                 {about.discoverCompany}
             </p>
 
-            <h2 className="max-w-3xl text-5xl font-bold leading-tight tracking-tight drop-shadow-md">
+            <h2 data-jos-enter="enter" data-jos-delay="100" className="max-w-3xl text-5xl font-bold leading-tight tracking-tight drop-shadow-md">
                 {about.aboutOf} JOSUNICO
             </h2>
 
-            <p className="mt-4 max-w-xl text-base leading-7 text-white drop-shadow-md">
+            <p data-jos-enter="enter" data-jos-delay="200" className="mt-4 max-w-xl text-base leading-7 text-white drop-shadow-md">
                 {about.heroDescription}
             </p>
 
@@ -108,7 +111,7 @@ export default function AboutContent() {
         <div className="mx-auto grid max-w-7xl items-center gap-8 lg:grid-cols-2 lg:gap-12">
 
           {/* TEXTE */}
-          <div>
+          <div data-jos-reveal="up">
             <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.18em] text-[#B71932]">
               {about.identityLabel}
             </p>
@@ -170,7 +173,7 @@ export default function AboutContent() {
           </div>
 
           {/* IMAGE */}
-          <div className="relative pb-4">
+          <div data-jos-reveal="up" data-jos-delay="120" className="relative pb-4">
             <div className="relative h-[280px] overflow-hidden rounded-xl shadow-lg sm:h-[360px] lg:h-[390px]">
               <Image
                 src="/images/services/a-propos-chantier.webp"
@@ -213,7 +216,7 @@ export default function AboutContent() {
         <div className="mx-auto max-w-7xl">
 
           {/* TITRE */}
-          <div className="mb-7 text-center">
+          <div data-jos-reveal="up" className="mb-7 text-center">
             <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.18em] text-[#B71932]">
               {about.purposeLabel}
             </p>
@@ -234,7 +237,7 @@ export default function AboutContent() {
           <div className="grid gap-4 lg:grid-cols-3">
 
             {/* MISSION */}
-            <article
+            <article data-jos-reveal="up"
               className="
                 group rounded-xl border border-slate-200
                 bg-[#F7F9FC] px-6 py-7
@@ -271,7 +274,7 @@ export default function AboutContent() {
             </article>
 
             {/* VISION */}
-            <article
+            <article data-jos-reveal="up" data-jos-delay="100"
               className="
                 group rounded-xl border border-slate-200
                 bg-[#F7F9FC] px-6 py-7
@@ -308,7 +311,7 @@ export default function AboutContent() {
             </article>
 
             {/* VALEURS */}
-            <article
+            <article data-jos-reveal="up" data-jos-delay="200"
               className="
                 group rounded-xl border border-slate-200
                 bg-[#F7F9FC] px-6 py-7

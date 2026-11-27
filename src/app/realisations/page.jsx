@@ -1,6 +1,8 @@
 
 "use client";
 
+import useJosunicoMotion from "@/components/useJosunicoMotion";
+
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -156,6 +158,7 @@ const heroSlides = [
 ];
 
 export default function RealisationsPage() {
+  const motionRef = useJosunicoMotion();
   const { t } = useLanguage();
   const tr = t.realisations;
   const translatedGallery = gallery.map((item) => ({
@@ -227,7 +230,7 @@ export default function RealisationsPage() {
   }, [selectedIndex, filtered.length]);
 
   return (
-    <main className="min-h-screen bg-[#F5F7FA]">
+    <main ref={motionRef} className="min-h-screen bg-[#F5F7FA]">
 
       
     {/* HERO CARROUSEL */}
@@ -239,7 +242,7 @@ export default function RealisationsPage() {
         <div
             key={slide.id}
             aria-hidden="true"
-            className={`absolute inset-0 transition-opacity duration-[1800ms] ease-in-out ${
+            className={`absolute inset-0 transition-opacity duration-[1800ms] ease-in-out motion-reduce:transition-none ${
             activeHeroSlide === index
                 ? "z-10 opacity-100"
                 : "z-0 opacity-0"
@@ -269,15 +272,15 @@ export default function RealisationsPage() {
 
         <div className="max-w-2xl">
 
-        <p className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-[#FFB4BC]">
+        <p data-jos-enter="enter" className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-[#FFB4BC]">
             {tr.heroEyebrow}
         </p>
 
-        <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl">
+        <h1 data-jos-enter="enter" data-jos-delay="100" className="text-4xl font-extrabold tracking-tight sm:text-5xl">
             {tr.heroTitle}
         </h1>
 
-        <p className="mt-4 max-w-xl text-sm leading-6 text-white/90 sm:text-base">
+        <p data-jos-enter="enter" data-jos-delay="200" className="mt-4 max-w-xl text-sm leading-6 text-white/90 sm:text-base">
             {tr.heroDescription}
         </p>
 
@@ -313,7 +316,7 @@ export default function RealisationsPage() {
       {/* GALERIE */}
       <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
 
-        <div className="mb-7 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+        <div data-jos-reveal="up" className="mb-7 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
           <div>
             <div className="mb-3 flex items-center gap-2">
               <span className="h-6 w-1.5 -skew-x-12 bg-[#B71932]" />
@@ -339,7 +342,7 @@ export default function RealisationsPage() {
         </div>
 
         {/* FILTRES */}
-        <div className="mb-7 flex flex-wrap gap-2">
+        <div data-jos-reveal="up" className="mb-7 flex flex-wrap gap-2">
           {categories.map((category) => (
             <button
               key={category}
@@ -364,7 +367,7 @@ export default function RealisationsPage() {
             const isLargeLayout = activeCategory === "Tous";
 
             return (
-              <button
+              <button data-jos-reveal="up"
                 key={item.id}
                 type="button"
                 onClick={() => setSelectedIndex(index)}
@@ -430,7 +433,7 @@ export default function RealisationsPage() {
 
       {/* APPEL À L'ACTION */}
       <section className="bg-[#092D5A] px-5 py-11 text-white sm:px-8">
-        <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-6 md:flex-row md:items-center">
+        <div data-jos-reveal="up" className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-6 md:flex-row md:items-center">
           <div>
             <h2 className="text-2xl font-extrabold sm:text-3xl">
               {tr.ctaTitle}
